@@ -5,7 +5,7 @@ import java.util.List;
 import com.tiendaonline.entity.Usuarios;
 
 
-public interface IUsuariosRepository {
+public interface IUsuariosRepository2 {
 
 	public List<Usuarios> getAllUsuarios();
 	

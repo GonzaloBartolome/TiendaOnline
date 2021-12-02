@@ -1,10 +1,13 @@
-package com.tiendaonline.entities;
+package com.tiendaonline.entity;
+
 
 public class UnidadesCarrito {
 	
 	Productos producto; 
 	
 	Integer unidades;
+	
+	Double total;
 	
 
 	public UnidadesCarrito() {
@@ -31,6 +34,14 @@ public class UnidadesCarrito {
 
 	public void setUnidades(Integer unidades) {
 		this.unidades = unidades;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
 	} 
 	
 

@@ -69,14 +69,18 @@
 				<th>Nombre</th>
 				<th>Descripción</th>
 				<th>Precio</th>
+				<th>Unidades</th>
+
 			</tr>
 
-			<tr th:each="producto: ${session.carrito}">
+			<tr th:each="unidades: ${session.carrito}">
 
-				<td th:text="${producto.id_categoria}"></td>
-				<td th:text="${producto.nombre}"></td>
-				<td th:text="${producto.descripcion}"></td>
-				<td th:text="${producto.precio}"></td>
+				<td th:text="${unidades.producto.id_categoria}"></td>
+				<td th:text="${unidades.producto.nombre}"></td>
+				<td th:text="${unidades.producto.descripcion}"></td>
+				<td th:text="${unidades.producto.precio}"></td>
+				<td th:text="${unidades.unidades}"></td>
+
 				<td></td>
 
 			</tr>
@@ -84,6 +88,8 @@
 			<tr>
 				<td>Total</td>
 				<td th:text="${total}"></td>
+				
+				
 				<td><form th:action="@{/productos/pago}"
 						th:object="${session.carrito}" method="get">
 						<input type="hidden" name="cart" id="id" th:value="cart">

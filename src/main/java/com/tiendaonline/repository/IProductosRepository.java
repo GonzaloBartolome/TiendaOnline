@@ -2,9 +2,13 @@ package com.tiendaonline.repository;
 
 import java.util.List;
 
-import com.tiendaonline.entities.Productos;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IProductosRepository {
+import com.tiendaonline.entity.Productos;
+
+@Repository
+public interface IProductosRepository extends JpaRepository<Productos, Integer>{
 
 	void addProducto(Productos producto);
 

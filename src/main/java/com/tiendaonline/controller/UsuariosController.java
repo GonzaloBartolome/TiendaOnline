@@ -4,40 +4,37 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tiendaonline.entities.Productos;
-import com.tiendaonline.service.Carrito;
-import com.tiendaonline.service.ProductosService;
+import com.tiendaonline.entity.Usuarios;
+import com.tiendaonline.service.UsuariosService;
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuariosController {
 	
+	@Autowired
+	UsuariosService usuariosS;
+	
+	Usuarios usuario = new Usuarios();
+	
+	
 	@GetMapping("/login")
-	public String addProductCarrito(HttpSession sesion, Model model, @RequestParam String email, @RequestParam String pass) {
+	public String checkLogin(HttpSession sesion, Model model, @RequestParam String email, @RequestParam String pass) {
 		
-		sesion.setAttribute("email", email);
 		
-		ProductosService productosService = new ProductosService();
+		//TODO: Checkear el login
+		usuario = usuariosS.checkUsuarioByEmail(email);
 		
-		ArrayList<Productos> productList = productosService.getAllProducts();
+		sesion.setAttribute("nombre", usuario.getNombre());
 		
-		model.addAttribute("productList", productList);
 		
-		ArrayList<Productos> carrito = (ArrayList<Productos>) sesion.getAttribute("carrito");
-
-		Carrito totalCarrito = new Carrito();
-
-		Double total = totalCarrito.getTotal(carrito);
-
-		model.addAttribute("total", total);
-		
-		return "catalog";
+		return "redirect:/index";
 		
 		
 	}

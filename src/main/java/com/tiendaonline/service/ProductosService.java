@@ -5,24 +5,40 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tiendaonline.entities.Productos;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tiendaonline.entity.Productos;
+import com.tiendaonline.entity.UnidadesCarrito;
 import com.tiendaonline.repository.IProductosRepository;
 
-public class ProductosService implements IProductosRepository{
 
-	@Override
+public class ProductosService {
+	
+	
+	IProductosRepository productRepo;
+
 	public void addProducto(Productos producto) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public boolean checkProduct(String nameProduct) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+
+	
+	public List<Productos> getAllProductos(){
+		
+		List<Productos> listProducts = productRepo.getAllProducts();
+		
+		return listProducts;
+	}
+	
+	// A piñon 
 	public ArrayList<Productos> getAllProducts() {
 		// TODO Cambiar por Database Products
 		Timestamp ts = Timestamp.from(Instant.now());
@@ -45,7 +61,6 @@ public class ProductosService implements IProductosRepository{
 		return listaProductos;
 	}
 
-	@Override
 	public Productos getProductoById(Integer id) {
 		// TODO Auto-generated method stub
 		
@@ -59,5 +74,4 @@ public class ProductosService implements IProductosRepository{
 		
 		return null;
 	}
-
 }
