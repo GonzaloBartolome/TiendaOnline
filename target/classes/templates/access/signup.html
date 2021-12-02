@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Alta Usuario</title>
+</head>
+<body>
+	<div>
+
+		<!--  TODO: Mostrar Productos  -->
+
+		<!--  TODO: Login  -->
+
+		<form th:action="@{/signup/submit}" th:object="${usuario}"
+			method="post">
+			<span> Crea tu Cuenta </span>
+
+			<div data-validate="Name is required">
+				<input type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+			</div>
+
+			<div data-validate="Valid email is required: ex@abc.xyz">
+				<input type="text" name="email" id="email" placeholder="Email" required>
+			</div>
+
+			<div data-validate="Password is required">
+				<input type="password" name="clave" id="pass" placeholder="Password" required>
+			</div>
+
+			<div>
+				<button>SignUp</button>
+			</div>
+		</form>
+	</div>
+	<p th:text="${mensaje}" style="color: red;"></p>
+	<div>
+
+		<p>
+			<a th:href="@{/}">Inicio</a>
+		</p>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+
+		<!--  TODO: Mostrar Productos  -->
+
+		<!--  TODO: Login  -->
+
+		<form th:action="@{/login/submit}" th:object="${usuario}"
+			method="post">
+			<span> Login </span>
+
+			<div data-validate="Valid email is required: ex@abc.xyz">
+				<input type="text" name="email" id="email" placeholder="Email">
+			</div>
+
+			<div data-validate="Password is required">
+				<input type="password" name="clave" id="pass" placeholder="Password">
+			</div>
+
+			<div>
+				<button>Login</button>
+			</div>
+		</form>
+	</div>
+	<p th:text="${mensaje}" style="color: red;"></p>
+	<div>
+
+		<p>
+			<a th:href="@{/}">Inicio</a>
+		</p>
+	</div>
+
+
+</body>
+</html>

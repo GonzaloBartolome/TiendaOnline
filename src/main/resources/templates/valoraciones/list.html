@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Listar Valoracion</title>
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+	<h3>Listar Valoracion</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Id Producto</th>        
+        	<th>Id usuario</th>
+			<th>Valoracion</th>
+			<th>Comentario</th>
+			
+		</tr>
+        <tr th:each="valoracion : ${list}">
+            <td th:text="${valoracion.id_producto}">Id Producto</td>
+            <td th:text="${valoracion.id_usuario}">Id Usuario</td>
+            <td th:text="${valoracion.valoracion}">Valoracion</td>
+            <td th:text="${valoracion.comentario}">Comentario</td>
+           
+            
+   		  	         
+            <td><a th:href="@{/valoraciones/delete/}+${valoracion.id}">Eliminar</a></td>
+            <td><a th:href="@{/valoraciones/edit/}+${valoracion.id}">Editar</a></td>
+        </tr>
+    </table>
+    
+    <p><a th:href="@{/}">Inicio</a></p>
+</body>
+</html>

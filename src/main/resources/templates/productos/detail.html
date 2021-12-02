@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<span>Hola </span><span th:text="${session.email}"></span>
+	</div>
+	<div>
+
+		<table border="">
+			<tr>
+				<th>Categoria</th>
+				<th>Nombre</th>
+				<th>Descripción</th>
+				<th>Precio</th>
+				<th>Comprar</th>
+			</tr>
+
+			<tr>
+
+				<td th:text="${producto.id_categoria}"></td>
+				<td th:text="${producto.nombre}"></td>
+				<td th:text="${producto.descripcion}"></td>
+				<td th:text="${producto.precio}"></td>
+				<td><a th:href="@{/productos/detail/}+${producto.id}">Ver
+						Detalle</a></td>
+				<td><a th:href="@{/productos/addCarrito/}+${producto.id}">Añadir a Carrito</a></td>
+
+
+			</tr>
+
+
+		</table>
+	</div>
+
+</body>
+</html>

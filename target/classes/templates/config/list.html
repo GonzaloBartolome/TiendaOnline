@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Listar Config</title>
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+	<h3>Listar Config</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>        
+        	<th>Clave</th>
+			<th>Valor</th>
+			<th>Tipo</th>
+			
+		</tr>
+        <tr th:each="configuracion : ${list}">
+            <td th:text="${configuracion.id}">Id</td>
+            <td th:text="${configuracion.clave}">Clave</td>
+            <td th:text="${configuracion.valor}">Valor</td>
+            <td th:text="${configuracion.tipo}">Tipo</td>
+            
+   		  	         
+            <td><a th:href="@{/config/delete/}+${configuracion.id}">Eliminar</a></td>
+            <td><a th:href="@{/config/edit/}+${configuracion.id}">Editar</a></td>
+        </tr>
+    </table>
+    
+    <p><a th:href="@{/}">Inicio</a></p>
+</body>
+</html>

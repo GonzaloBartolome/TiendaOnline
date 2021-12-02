@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Crear Valoracion</title>
+</head>
+<body>
+	<h3>Crear Valoracion</h3>
+	 <form th:action="@{/valoraciones/add/submit}" th:object="${valoracion}" method="post" >
+	    <input type="text" id="id_producto" name="id_producto" placeholder="Id Producto" />
+	    <br/><br/>
+	    <input type="text" id="id_usuario" name="id_usuario" placeholder="Id Usuario" />
+	    <br/><br/>
+	    <input type="text" id="valoracion" name="valoracion" placeholder="Valoracion" />
+	    <br/><br/>
+	    <input type="text" id="comentario" name="comentario" placeholder="Comentario" />
+	    <br/><br/>
+	    <button>Guardar</button>
+	  </form>
+
+	<p><a th:href="@{/}">Inicio</a></p>
+	
+</body>
+</html>

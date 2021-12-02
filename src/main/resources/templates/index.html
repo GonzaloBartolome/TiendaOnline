@@ -5,28 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
-
-		<!--  TODO: Mostrar Productos  -->
-
-		<!--  TODO: Login  -->
-
-		<form th:action="@{/usuario/login}" th:object="${user}" method="get">
-			<span> Login </span>
-
-			<div data-validate="Valid email is required: ex@abc.xyz">
-				<input type="text" name="email" id="email" placeholder="Email">
-			</div>
-
-			<div data-validate="Password is required">
-				<input type="password" name="pass" id="pass" placeholder="Password">
-			</div>
-
-			<div>
-				<button>Login</button>
-			</div>
-		</form>
-	</div>
+	<div><h1>Pagina Principal</h1></div>
+	
 	<div>
 
 		<table border="">
@@ -44,20 +24,12 @@
 				<td th:text="${producto.nombre}"></td>
 				<td th:text="${producto.descripcion}"></td>
 				<td th:text="${producto.precio}"></td>
-				<td><form th:action="@{/productos/addCarrito}"
-						th:object="${producto}" method="get">
-						<input type="hidden" name="id" id="id" th:value="${producto.id}">
-						<button>Añadir al Carrito</button>
-					</form></td>
-				<td><form th:action="@{/productos/detalle}"
-						th:object="${producto}" method="get">
-						<input type="hidden" name="id" id="id" th:value="${producto.id}">
-						<button>Ver Detalle</button>
-					</form></td>
+				<td><a th:href="@{/productos/detail/}+${producto.id}">Ver
+						Detalle</a></td>
+				<td><a th:href="@{/productos/addCarrito/}+${producto.id}">Añadir
+						a Carrito</a></td>
 
 			</tr>
-
-
 		</table>
 	</div>
 	<div>
@@ -87,19 +59,77 @@
 
 			<tr>
 				<td>Total</td>
-				<td th:text="${total}"></td>
-				
-				
-				<td><form th:action="@{/productos/pago}"
-						th:object="${session.carrito}" method="get">
-						<input type="hidden" name="cart" id="id" th:value="cart">
-						<button>Pagar</button>
-					</form></td>
+				<td th:text="${session.totalCarrito}"></td>
+
+				<td><button>
+						<a th:href="@{/payment}">Pagar</a>
+					</button></td>
+
+
 			</tr>
 		</table>
 
 	</div>
 
+<div>
+
+		<nav>
+			<ul>
+				<li><a th:href="@{/login}">Login</a></li>
+				<li><a th:href="@{/signup}">Alta Usuario</a></li>
+			</ul>
+		</nav>
+		<h2>Usuarios</h2>
+		<nav>
+			<ul>
+				<li><a th:href="@{/usuarios/add}">Nuevo usuario</a></li>
+				<li><a th:href="@{/usuarios/list}">Listado de usuarios</a></li>
+			</ul>
+		</nav>
+		<h2>Productos</h2>
+		<nav>
+			<ul>
+				<li><a th:href="@{/productos/add}">Nuevo producto</a></li>
+				<li><a th:href="@{/productos/list}">Listado de productos</a></li>
+			</ul>
+		</nav>
+		<h2>Categorias</h2>
+		<nav>
+			<ul>
+				<li><a th:href="@{/categorias/add}">Añadir categoria</a></li>
+				<li><a th:href="@{/categorias/list}">Listado de categorias</a></li>
+			</ul>
+		</nav>
+		<h2>Buscar</h2>
+		<nav>
+			<ul>
+				<li><a th:href="@{/buscar/cat}">Buscar Productos</a></li>
+			</ul>
+		</nav>
+		<h2>Config</h2>
+		<nav>
+			<ul>
+				<li><a th:href="@{/config/list}">Listar Configuraciones</a></li>
+				<li><a th:href="@{/config/add}">Añadir Configuraciones</a></li>
+				
+			</ul>
+		</nav>
+		<h2>Metodos de Pago</h2>
+		<nav>
+			<ul>
+				<li><a th:href="@{/metodos/list}">Listar Metodos de Pago</a></li>
+				<li><a th:href="@{/metodos/add}">Añadir Metodos de Pago</a></li>
+				
+			</ul>
+		</nav>
+		<h2>Metodos de Pago</h2>
+		<nav>
+			<ul>
+				<li><a th:href="@{/valoraciones/list}">Listar Valoraciones</a></li>
+				<li><a th:href="@{/valoraciones/add}">Añadir Valoracion</a></li>
+				
+			</ul>
+		</nav>
 
 
 </body>

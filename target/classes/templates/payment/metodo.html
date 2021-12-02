@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<div>
+
+		<div>Carrito</div>
+		<table border="">
+			<tr>
+				<th>Categoria</th>
+				<th>Nombre</th>
+				<th>Descripción</th>
+				<th>Precio</th>
+			</tr>
+
+			<tr th:each="linea: ${session.carrito}">
+
+				<td th:text="${linea.producto.id_categoria}"></td>
+				<td th:text="${linea.producto.nombre}"></td>
+				<td th:text="${linea.producto.descripcion}"></td>
+				<td th:text="${linea.producto.precio}"></td>
+				<td></td>
+
+			</tr>
+			<tr>
+				<td>Total</td>
+				<td th:text="${session.totalCarrito}"></td>
+			</tr>
+
+		</table>
+		</div>
+	<div>
+
+		<table border="">
+			<tr>
+				<th>Metodo de Pago</th>
+			
+			</tr>
+
+			<tr th:each="metodo: ${listMetodos}">
+
+				<td th:text="${metodo.metodoPago}"></td>
+		
+				<td><a th:href="@{/payment/submit/}+${metodo.id}">Pagar</a></td>
+				
+
+			</tr>
+		</table>
+	</div>
+
+	</div>
+	<div></div>
+</body>
+</html>

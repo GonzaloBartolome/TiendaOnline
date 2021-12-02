@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Editar Config</title>
+</head>
+<body>
+	<h3>Editar Categoria</h3>
+    <form th:action="@{/config/edit/submit}" th:object="${configuracion}" method="post" >
+	    <input type="text" id="clave" name="clave" placeholder="Clave" th:field="*{clave}"/>
+	    <br/><br/>
+	      <input type="text" id="valor" name="valor" placeholder="Valor" th:field="*{valor}"/>
+	    <br/><br/>
+	    <input type="text" id="tipo" name="tipo" placeholder="Tipo" th:field="*{tipo}"/>
+	    <br/><br/>
+	    <button>Guardar</button>
+	    
+	    <input type="hidden" id="id" name="id" th:field="*{id}"/>
+	</form>
+	
+	<p><a th:href="@{/}">Inicio</a></p>
+</body>
+</html>

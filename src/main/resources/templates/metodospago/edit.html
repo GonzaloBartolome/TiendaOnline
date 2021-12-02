@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Editar Config</title>
+</head>
+<body>
+	<h3>Editar Categoria</h3>
+    <form th:action="@{/metodos/edit/submit}" th:object="${metodo}" method="post" >
+	    <input type="text" id="metodoPago" name="metodoPago" placeholder="Metodo de Pago" th:field="*{metodoPago}"/>
+	    <br/><br/>
+	   
+	    <button>Guardar</button>
+	    
+	    <input type="hidden" id="id" name="id" th:field="*{id}"/>
+	</form>
+	
+	<p><a th:href="@{/}">Inicio</a></p>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Editar usuario</title>
+</head>
+<body>
+	<h3>Editar usuario</h3>
+    <form th:action="@{/usuarios/edit/submit}" th:object="${usuario}" method="post" >
+	    <input type="text" id="name" name="name" placeholder="Nombre" th:field="*{nombre}"/>
+	    <br/><br/>
+	      <input type="text" id="name" name="apellido1" placeholder="Nombre" th:field="*{apellido1}"/>
+	    <br/><br/>
+	     <input type="text" id="name" name="apellido" placeholder="Nombre" th:field="*{apellido2}"/>
+	    <br/><br/>
+	    <input type="number" id="name" name="id_rol" placeholder="Nombre" th:field="*{id_rol}"/>
+	    <br/><br/>
+	    <input type="password" id="pass" name="clave" placeholder="Contraseña" th:field="*{clave}"/>
+	    <br/><br/>
+	    <input type="email" id="email" name="email" placeholder="Email" th:field="*{email}"/>
+	    <br/><br/>
+	     <input type="text" id="name" name="direccion" placeholder="Nombre" th:field="*{direccion}"/>
+	    <br/><br/>
+	    <input type="text" id="name" name="localidad" placeholder="Nombre" th:field="*{localidad}"/>
+	    <br/><br/>
+	   	<input type="text" id="name" name="provincia" placeholder="Nombre" th:field="*{provincia}"/>
+	    <br/><br/>
+	   	<input type="text" id="name" name="telefono" placeholder="Nombre" th:field="*{telefono}"/>
+	    <br/><br/>
+	  	<input type="text" id="name" name="dni" placeholder="Nombre" th:field="*{dni}"/>
+	    <br/><br/>
+	    <button>Guardar</button>
+	    
+	    <input type="hidden" id="id" name="id" th:field="*{id}"/>
+	</form>
+	
+	<p><a th:href="@{/}">Inicio</a></p>
+</body>
+</html>

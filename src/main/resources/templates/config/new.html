@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Crear Config</title>
+</head>
+<body>
+	<h3>Crear Configuracion</h3>
+	 <form th:action="@{/config/add/submit}" th:object="${configuracion}" method="post" >
+	    <input type="text" id="clave" name="clave" placeholder="Clave" />
+	    <br/><br/>
+	    <input type="text" id="valor" name="valor" placeholder="Valor" />
+	    <br/><br/>
+	    <input type="text" id="tipo" name="tipo" placeholder="Tipo" />
+	    <br/><br/>
+	    <button>Guardar</button>
+	  </form>
+
+	<p><a th:href="@{/}">Inicio</a></p>
+	
+</body>
+</html>
