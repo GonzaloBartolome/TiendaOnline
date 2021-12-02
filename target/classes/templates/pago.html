@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+
+		<div>Carrito</div>
+		<table border="">
+			<tr>
+				<th>Categoria</th>
+				<th>Nombre</th>
+				<th>Descripción</th>
+				<th>Precio</th>
+			</tr>
+
+			<tr th:each="producto: ${session.carrito}">
+
+				<td th:text="${producto.id_categoria}"></td>
+				<td th:text="${producto.nombre}"></td>
+				<td th:text="${producto.descripcion}"></td>
+				<td th:text="${producto.precio}"></td>
+				<td></td>
+
+			</tr>
+			<tr>
+				<td>Total</td>
+				<td th:text="${total}"></td>
+			</tr>
+
+		</table>
+
+		<div><button>Realizar Pago</button></div>
+	</div>
+	<div></div>
+</body>
+</html>
