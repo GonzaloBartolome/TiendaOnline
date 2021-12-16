@@ -77,6 +77,7 @@ public class ProductosController {
 
 		return "productos/list";
 	}
+	
 
 	@GetMapping("/addCarrito/{id}")
 	public String addProductCarrito(HttpSession session, Model model, @PathVariable int id) {
@@ -96,6 +97,7 @@ public class ProductosController {
 			if (linea != null) {
 
 				linea.setUnidades(linea.getUnidades()+1);
+				linea.setTotal(uCarritoS.calcularTotal(linea));
 
 			} else {
 
@@ -103,7 +105,8 @@ public class ProductosController {
 				carrito.add(linea);
 			}
 		} 
-
+		
+		session.setAttribute("unitsCarrito", uCarritoS.getUnitsCarrito(carrito));	
 		session.setAttribute("totalCarrito", uCarritoS.getTotalCarrito(carrito));
 
 		return "redirect:/index";

@@ -28,6 +28,7 @@ public class UsuariosService {
 
 
 	public List<Usuarios> getListaUsuarios() {
+		
 		return userRepo.findAll();
 	}
 	

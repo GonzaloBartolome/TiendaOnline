@@ -11,7 +11,7 @@ public class Pedidos {
 
 	@Id @GeneratedValue
 	private Integer id;
-	private Integer usuario_id;
+	private Integer id_usuario;
 	private Date fecha;
 	private String metodoPago;
 	private String estado;
@@ -25,7 +25,7 @@ public class Pedidos {
 			Double total) {
 		super();
 		this.id = id;
-		this.usuario_id = id_usuario;
+		this.id_usuario = id_usuario;
 		this.fecha = fecha;
 		this.metodoPago = metodoPago;
 		this.estado = estado;
@@ -42,11 +42,11 @@ public class Pedidos {
 	}
 
 	public Integer getId_usuario() {
-		return usuario_id;
+		return id_usuario;
 	}
 
 	public void setId_usuario(Integer id_usuario) {
-		this.usuario_id = id_usuario;
+		this.id_usuario = id_usuario;
 	}
 
 	public Date getFecha() {

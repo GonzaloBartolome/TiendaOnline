@@ -1,136 +1,98 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head th:replace="fragments :: head">
+
 </head>
+
 <body>
-	<div><h1>Pagina Principal</h1></div>
-	
-	<div>
+	<div th:replace="fragments :: loader"></div>
+	<div th:replace="fragments :: nav-container"></div>
 
-		<table border="">
-			<tr>
-				<th>Categoria</th>
-				<th>Nombre</th>
-				<th>Descripción</th>
-				<th>Precio</th>
-				<th>Comprar</th>
-			</tr>
+	<div class="main-container">
+		<header class="fullscreen-element no-pad centered-text">
+			<div class="background-image-holder parallax-background overlay">
+				<img class="background-image" alt="Background Image"
+					src="img/main_image.jpg">
+			</div>
 
-			<tr th:each="producto: ${productList}">
+			<div class="container align-vertical">
+				<div class="row">
+					<div class="col-md-7 col-sm-8">
 
-				<td th:text="${producto.id_categoria}"></td>
-				<td th:text="${producto.nombre}"></td>
-				<td th:text="${producto.descripcion}"></td>
-				<td th:text="${producto.precio}"></td>
-				<td><a th:href="@{/productos/detail/}+${producto.id}">Ver
-						Detalle</a></td>
-				<td><a th:href="@{/productos/addCarrito/}+${producto.id}">Añadir
-						a Carrito</a></td>
-
-			</tr>
-		</table>
-	</div>
-	<div>
-
-		<div>Carrito</div>
-		<table border="">
-			<tr>
-				<th>Categoria</th>
-				<th>Nombre</th>
-				<th>Descripción</th>
-				<th>Precio</th>
-				<th>Unidades</th>
-
-			</tr>
-
-			<tr th:each="unidades: ${session.carrito}">
-
-				<td th:text="${unidades.producto.id_categoria}"></td>
-				<td th:text="${unidades.producto.nombre}"></td>
-				<td th:text="${unidades.producto.descripcion}"></td>
-				<td th:text="${unidades.producto.precio}"></td>
-				<td th:text="${unidades.unidades}"></td>
-
-				<td></td>
-
-			</tr>
-
-			<tr>
-				<td>Total</td>
-				<td th:text="${session.totalCarrito}"></td>
-
-				<td><button>
-						<a th:href="@{/payment}">Pagar</a>
-					</button></td>
-
-
-			</tr>
-		</table>
-
+						<h1 class="text-white">Denominación de Origen Toro. Vinos
+							intensos, potentes, pero sobre todo, elegantes elaborados
+							mayoritariamente con nuestra uva.</h1>
+						<p class="lead text-white">Excepcional e intenso.</p>
+						<a th:href="@{/login}" class="btn btn-primary btn-white inner-link" target="_self">Login</a> 
+						<a th:href="@{/signup}" class="btn btn-primary btn-filled inner-link" target="_self">Date de alta</a>
+					</div>
+				</div>
+			</div>
+		</header>
 	</div>
 
-<div>
+	<div class="main-container">
+		<section class="team-1">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<h1>Meet collection of our wines</h1>
+						<p class="lead">Lorem ipsum dolor sit amet, consectetur
+							adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+							exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat.</p>
+					</div>
+				</div>
 
-		<nav>
-			<ul>
-				<li><a th:href="@{/login}">Login</a></li>
-				<li><a th:href="@{/signup}">Alta Usuario</a></li>
-			</ul>
-		</nav>
-		<h2>Usuarios</h2>
-		<nav>
-			<ul>
-				<li><a th:href="@{/usuarios/add}">Nuevo usuario</a></li>
-				<li><a th:href="@{/usuarios/list}">Listado de usuarios</a></li>
-			</ul>
-		</nav>
-		<h2>Productos</h2>
-		<nav>
-			<ul>
-				<li><a th:href="@{/productos/add}">Nuevo producto</a></li>
-				<li><a th:href="@{/productos/list}">Listado de productos</a></li>
-			</ul>
-		</nav>
-		<h2>Categorias</h2>
-		<nav>
-			<ul>
-				<li><a th:href="@{/categorias/add}">Añadir categoria</a></li>
-				<li><a th:href="@{/categorias/list}">Listado de categorias</a></li>
-			</ul>
-		</nav>
-		<h2>Buscar</h2>
-		<nav>
-			<ul>
-				<li><a th:href="@{/buscar/cat}">Buscar Productos</a></li>
-			</ul>
-		</nav>
-		<h2>Config</h2>
-		<nav>
-			<ul>
-				<li><a th:href="@{/config/list}">Listar Configuraciones</a></li>
-				<li><a th:href="@{/config/add}">Añadir Configuraciones</a></li>
-				
-			</ul>
-		</nav>
-		<h2>Metodos de Pago</h2>
-		<nav>
-			<ul>
-				<li><a th:href="@{/metodos/list}">Listar Metodos de Pago</a></li>
-				<li><a th:href="@{/metodos/add}">Añadir Metodos de Pago</a></li>
-				
-			</ul>
-		</nav>
-		<h2>Metodos de Pago</h2>
-		<nav>
-			<ul>
-				<li><a th:href="@{/valoraciones/list}">Listar Valoraciones</a></li>
-				<li><a th:href="@{/valoraciones/add}">Añadir Valoracion</a></li>
-				
-			</ul>
-		</nav>
+				<div class="row">
+					<div th:each="producto: ${productList}" class="col-md-2 col-sm-4">
+						<div class="team-1-member">
+							<img alt="Team Member" class="background-image"
+								th:src="${producto.imagen}">
+							<h5 th:text="${producto.nombre}"></h5>
+							<span th:text="${producto.precio} + €"></span><br>
+							<p th:text="${producto.descripcion}">
+								</pth:text>
+							</p>
+							
+								<button type="button" class=""/><a th:href="@{/productos/detail/}+${producto.id}">Detalle
+								<span class="glyphicon glyphicon-eye-open"></span></span></a>
+								</button>
+								
+								<button type="button" class=""/><a th:href="@{/productos/addCarrito/}+${producto.id}">Comprar
+								<span class="glyphicon glyphicon-shopping-cart"></span></a>
+								</button>
+						</div>
 
+					</div>
 
+				</div>
+
+			</div>
+		</section>
+
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+
+	<script th:src="@{js/jquery.min.js}"></script>
+	<script th:src="@{js/jquery.plugin.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script th:src="@{js/jquery.flexslider-min.js}"></script>
+	<script th:src="@{js/smooth-scroll.min.js}"></script>
+	<script th:src="@{js/skrollr.min.js}"></script>
+	<script th:src="@{js/spectragram.min.js}"></script>
+	<script th:src="@{js/scrollReveal.min.js}"></script>
+	<script th:src="@{js/isotope.min.js}"></script>
+	<script th:src="@{js/twitterFetcher_v10_min.js}"></script>
+	<script th:src="@{js/lightbox.min.js}"></script>
+	<script th:src="@{js/jquery.countdown.min.js}"></script>
+	<script th:src="@{js/scripts.js}"></script>
 </body>
 </html>

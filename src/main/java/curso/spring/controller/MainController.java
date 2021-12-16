@@ -58,6 +58,9 @@ public class MainController {
 	
 	@GetMapping("/login")
 	public String loginForm(Model model) {
+		
+		model.addAttribute("mensaje", "El usuario y/o la contraseña no son correctos.");
+
 		model.addAttribute("usuario", new Usuarios());
 		return "access/login";
 	}
@@ -73,7 +76,10 @@ public class MainController {
 		else {
 			model.addAttribute("mensaje", "El usuario y/o la contraseña no son correctos.");
 			model.addAttribute("usuario", new Usuarios());
-			return "access/login";
+			//return "access/login";
+			return "redirect:/login";
+
+			//return "redirect:/login";
 		}
 	}
 	

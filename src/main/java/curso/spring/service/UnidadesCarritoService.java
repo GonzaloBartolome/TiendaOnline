@@ -15,29 +15,40 @@ public class UnidadesCarritoService {
 		linea.setProducto(producto);
 		linea.setUnidades(1);
 		linea.setTotal(producto.getPrecio());
-	
+
 		return linea;
 	}
-	
+
 	public Double calcularTotal(UnidadesCarrito linea) {
-		
+
 		Double total = linea.getProducto().getPrecio() * linea.getUnidades();
 		return total;
 	}
-	
-	
+
+
+	//Get num de articulos
+	public Integer getUnitsCarrito(ArrayList<UnidadesCarrito> carrito) {
+
+		Integer total = 0;
+
+		for (UnidadesCarrito linea : carrito) {
+			total += linea.getUnidades();
+		}	
+		return total;
+	} 
+
 	//---------- Carrito
 	//Get total de carrito y de pedido
 	public Double getTotalCarrito(ArrayList<UnidadesCarrito> carrito) {
-		
+
 		Double total = (double) 0;
-		
+
 		for (UnidadesCarrito linea : carrito) {
 			total += linea.getUnidades() * linea.getProducto().getPrecio();
 		}	
 		return total;
 	} 
-	
+
 	//Get Linea de Pedido por producto
 	public UnidadesCarrito getLineaByProduct(ArrayList<UnidadesCarrito> carrito, Productos producto) {
 		for (UnidadesCarrito linea : carrito) {

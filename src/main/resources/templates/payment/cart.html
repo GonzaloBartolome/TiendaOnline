@@ -1,40 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8" />
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!--  Header -->
+<link href="css/theme-1.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<!--   -->
+
+
 </head>
+
 <body>
-	<div>
 
-		<div>Carrito</div>
-		<table border="">
-			<tr>
-				<th>Categoria</th>
-				<th>Nombre</th>
-				<th>Descripción</th>
-				<th>Precio</th>
-			</tr>
+	<div th:replace="fragments :: nav-container"></div>
 
-			<tr th:each="linea: ${session.carrito}">
+	<div class="main">
+		<h1>Shopping cart</h1>
+		<h2 class="sub-heading">Free shipping from $100!</h2>
 
-				<td th:text="${linea.producto.id_categoria}"></td>
-				<td th:text="${linea.producto.nombre}"></td>
-				<td th:text="${linea.producto.descripcion}"></td>
-				<td th:text="${linea.producto.precio}"></td>
-				<td></td>
+		<section class="shopping-cart">
 
-			</tr>
-			<tr>
-				<td>Total</td>
-				<td th:text="${session.totalCarrito}"></td>
-			</tr>
-
-		</table>
-
-		<div><button><a th:href="@{/payment/metodo}">Realizar Pago</a></button></div>
+			<link
+				href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+				rel="stylesheet">
+			<div class="container">
+				<table id="cart" class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th style="width: 50%">Product</th>
+							<th style="width: 10%">Price</th>
+							<th style="width: 8%">Quantity</th>
+							<th style="width: 22%" class="text-center">Subtotal</th>
+							<th style="width: 10%"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="linea: ${session.carrito}">
+							<td>
+								<div class="row">
+									<div class="col-sm-2 hidden-xs">
+										<img src="http://placehold.it/100x100" alt="..."
+											class="img-responsive" />
+									</div>
+									<div class="col-sm-10">
+										<h4 class="nomargin" th:text="${linea.producto.nombre}">Product
+										</h4>
+										<p th:text="${linea.producto.descripcion}">Quis aute iure
+											reprehenderit in voluptate velit esse cillum dolore eu fugiat
+											nulla pariatur. Lorem ipsum dolor sit amet.</p>
+									</div>
+								</div>
+							</td>
+							<td th:text="${linea.producto.precio}">$1.99</td>
+							<td th:text="${linea.unidades}"><input type="number"
+								class="form-control text-center" value="1"></td>
+							<td th:text="${linea.total} + €" class="text-center">1.99</td>
+							<td class="actions">
+								<button class="btn btn-info btn-sm">
+									<i class="fa fa-refresh"></i>
+								</button>
+								<button class="btn btn-danger btn-sm">
+									<i class="fa fa-trash-o"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="visible-xs">
+							<td class="text-center"><strong>Total</strong></td>
+						</tr>
+						<tr>
+							<td><a href="#" class="btn btn-warning"><i
+									class="fa fa-angle-left"></i> Continue Shopping</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+							<td class="hidden-xs text-center"><strong
+								th:text="${session.totalCarrito}">Total $1.99</strong></td>
+							<td><a th:href="@{/payment/metodo}" class="btn btn-success btn-block">Checkout
+									<i class="fa fa-angle-right"></i>
+							</a></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			
+		</section>
 		
 	</div>
-	<div></div>
+
+
+
+	<footer th:replace="fragments :: footer"></footer>
+
 </body>
 </html>
