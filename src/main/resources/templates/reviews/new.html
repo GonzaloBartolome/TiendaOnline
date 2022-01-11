@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Escribir Valoración</title>
+
+
+<!--  Header -->
+<link th:href="@{/css/theme-1.css}" rel="stylesheet" type="text/css"
+	media="all" />
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
+	type="text/css" media="all" />
+<link rel="stylesheet"
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}">
+<!--   -->
+
+<link th:href="@{/css/form.css}" rel="stylesheet" type="text/css"
+	media="all" />
+</head>
+
+<body>
+	<div th:replace="fragments :: nav-container"></div>
+
+	<div class="testbox">
+
+		<form th:action="@{/reviews/add/submit}" th:object="${valoracion}"
+			method="post">
+			
+			<input
+				class="form-control" type="hidden" id="name" name="producto.nombre"
+				placeholder="Nombre" th:field="*{producto.id}" /> <input
+				class="form-control" type="hidden" id="name" name="producto.nombre"
+				placeholder="Nombre" th:field="*{usuario.id}" />
+
+			<h3 class="box-title">Escribir Valoración</h3>
+			<hr>
+			<input type="hidden" id="id" name="id" placeholder="id"
+				th:field="*{id}" readonly />
+
+
+			<div class="item">
+				 <label class="control-label">Producto</label> <input
+					class="form-control" type="text" id="name" name="producto.nombre"
+					placeholder="Producto" th:field="*{producto.nombre}" /><span
+					class="help-block"> <span class="help-block"> </span>
+			</div>
+
+			<!--/span-->
+
+
+			<div class="item">
+
+				<label class="control-label">Valoración</label> <input
+					class="form-control" type="number" id="name" min="0" max="5"
+					name="Valoración" placeholder="Valoración" th:field="*{valoracion}" /><span
+					class="help-block"> <span class="help-block"> </span>
+			</div>
+
+			<div class="item">
+				 <label class="control-label">Usuario</label> <input
+					class="form-control" type="text" id="name" name="usuario.nombre"
+					placeholder="Usuario" th:field="*{usuario.nombre}" /> <span
+					class="help-block"> </span>
+			</div>
+
+			<!--/span-->
+
+			<div class="item">
+				 <label class="control-label">Comentario</label> <input
+					class="form-control" type="text" id="name" name="comentario"
+					placeholder="Comentario" th:field="*{comentario}" /> <span
+					class="help-block"> </span>
+			</div>
+
+
+
+
+
+			<div class="form-actions">
+				<button type="submit" class="btn btn-success">
+					<i class="fa fa-check"></i> Guardar
+				</button>
+				<button type="submit" onclick="window.history.go(-1); return false;"
+					class="btn btn-default">Cancelar</button>
+			</div>
+
+	</form>
+
+
+
+	</div>
+
+	<footer th:replace="fragments :: footer"></footer>
+
+</body>
+</html>

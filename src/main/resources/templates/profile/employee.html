@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+
+
+        <nav th:replace="fragments :: nav-admin"></nav>
+        <div th:replace="fragments :: left-sidebar-employee"></div>
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+       <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Dashboard</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <button
+                            class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i
+                                class="ti-settings text-white"></i></button>
+                        <ol class="breadcrumb">
+                              <li><a th:text="${session.usuario.nombre}"></a></li>
+                        
+                             <li th:if="${session.usuario.rol.id}==3"><a th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+                            <li th:if="${session.usuario.rol.id}==2"><a th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+
+                            <li class="active">Perfil</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- Other sales widgets -->
+                <!-- ============================================================== -->
+                <!-- .row -->
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <div class="white-box">
+                            <div class="user-bg"> <img width="100%" alt="user" th:src="@{/img/logotype_dark.png}">
+                            </div>
+                            <div class="user-btm-box">
+                                <li class="devider"></li>
+
+                                <!-- .row -->
+                                <div class="row text-center m-t-10">
+                                    <div class="col-md-6 b-r"><strong>Nombre y Apellido</strong>
+                                        <p th:text="${session.usuario.nombre} + ' ' + ${session.usuario.apellido1}"></p>
+                                    </div>
+                                    <div class="col-md-6"><strong>DNI</strong>
+                                        <p th:text="${session.usuario.dni}">Designer</p>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                                <hr>
+                                <!-- .row -->
+                                <div class="row text-center m-t-10">
+                                    <div class="col-md-6 b-r"><strong>Email </strong>
+                                        <p th:text="${session.usuario.email}"></p>
+                                    </div>
+                                    <div class="col-md-6"><strong>Telefono</strong>
+                                        <p th:text="${session.usuario.telefono}"></p>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                                <hr>
+                                <!-- .row -->
+                                <div class="row text-center m-t-10">
+                                    <div class="col-md-12"><strong>Address</strong>
+                                        <p th:text="${session.usuario.direccion} + ' ' + ${session.usuario.localidad}">
+                                            <br /> Designer
+                                        </p>
+
+                                        <p th:text="${session.usuario.provincia}"></p>
+                                    </div>
+                                                                                                                                    
+
+                                </div>
+                                <hr>
+                                <div style="align-items: center;display: flex;justify-content: center;">
+                                <button class="btn btn-success"><a th:href="@{/pass}">Cambiar Contraseña</a></button>
+</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.row -->
+
+                    <div class="col-md-8 col-xs-12">
+                        <div class="white-box">
+                            <!-- .tabs -->
+                            <ul class="nav nav-tabs tabs customtab">
+
+                                <li class="tab">
+                                    <a href="#settings" data-toggle="tab" aria-expanded="false"> <span
+                                            class="visible-xs"><i class="fa fa-cog"></i></span> <span
+                                            class="hidden-xs">Editar Perfil</span> </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <!-- .tabs 1 -->
+                                <!-- .tabs3 -->
+                                <div class="tab-pane active" id="home">
+                                
+                                
+                                
+                                    <form th:action="@{/users/profile/employee/submit}" th:object="${usuario}" method="post"
+                                        class="form-horizontal form-material">
+                                        <div class="form-group">
+                                            <label class="col-md-12">Nombre</label>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control form-control-line" name="nombre"
+                                                    placeholder="Nombre" value="" th:field="*{nombre}">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" class="form-control" name="id"
+                                            placeholder="enter address line 2" value="" th:field="*{id}">
+                                        <input type="hidden" class="form-control" name="rol_id"
+                                            placeholder="enter address line 2" value="" th:field="*{rol.id}">
+                                        <input type="hidden" class="form-control" name="clave"
+                                            placeholder="enter address line 2" value="" th:field="*{clave}">
+
+
+
+                                        <div class="form-group">
+                                            <label for="example-email" class="col-md-12">Email</label>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control" name="email" placeholder="Email"
+                                                    value="" th:field="*{email}"> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="example-email" class="col-md-12">Apellido1</label>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control" name="apellido1"
+                                                    placeholder="enter phone number" value="" th:field="*{apellido1}">
+                                                
+                                            </div>
+                                        </div>
+                                            <div class="form-group">
+                                            <label for="example-email" class="col-md-12">Apellido2</label>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control" name="apellido2"
+                                                    placeholder="enter phone number" value="" th:field="*{apellido2}">
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-12">Dirección</label>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control" name="direccion" placeholder="direccion" value="" th:field="*{direccion}">
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
+                                            <label for="example-email" class="col-md-12">Localidad</label>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control" name="localidad"
+                                                    placeholder="enter phone number" value="" th:field="*{localidad}">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="example-email" class="col-md-12">Provincia</label>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control" name="provincia"
+                                                    placeholder="enter phone number" value="" th:field="*{provincia}">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">Telefono</label>
+                                            <div class="col-md-12">
+                                               <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="" th:field="*{telefono}">
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">Dni</label>
+                                            <div class="col-md-12">
+                                            <input type="text" class="form-control" name="dni" placeholder="DNI" value="" th:field="*{dni}">
+                                            </div>
+                                        </div>
+
+                                      
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button class="btn btn-success">Actualizar Perfil</button>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.tabs3 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- Extra-component -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2021 &copy; Designed by Gonzalo</footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <div th:replace="fragments :: scripts-admin">
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+
+
+       <nav th:replace="fragments :: nav-admin"></nav>
+        <div th:if="${session.usuario.rol.id}==2"><div th:replace="fragments :: left-sidebar-employee"></div></div>
+        <div th:if="${session.usuario.rol.id}==3"><div th:replace="fragments :: left-sidebar-admin"></div></div>
+        
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+       <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Descargas</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <button
+                            class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i
+                                class="ti-settings text-white"></i></button>
+                        <ol class="breadcrumb">
+                              <li><a th:text="${session.usuario.nombre}"></a></li>
+                        
+
+                            <li th:if="${session.usuario.rol.id}==1"><a th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+
+                            <li class="active">Descargas</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- Other sales widgets -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- Users table -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-heading">Descargas</div>
+                            <div class="table-responsive">
+                                <div>
+
+
+                                    <table class="table table-hover manage-u-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 70px;" class="text-center">#</th>
+                                                <th>Archivo</th>
+                                                <th>Descripción</th>
+                                                <th></th>
+                                                <th></th>
+                                               
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+                                            <tr>
+
+
+
+
+                                                <td>1</td>
+                                                <td><span class="font-medium">Excel</span>
+                                                </td>
+                                                
+                                                <td><span>Exportacion Productos</span>
+                                                   
+                                                </td>
+
+
+
+                                                <td>
+                                                   
+                                                    <button type="button"
+                                                        class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><a download="productos"
+                                                            th:href="@{/download/excel}"><i
+                                                                class="ti-pencil-alt"></i></a></button>
+                                                </td>
+												
+
+
+
+
+                                            </tr>
+                                            <tr>
+
+
+
+
+                                                <td>1</td>
+                                                <td><span class="font-medium">PDF</span>
+                                                </td>
+                                                
+                                                <td><span>Factura</span>
+                                                   
+                                                </td>
+
+
+
+                                                <td>
+                                                   
+                                                    <button type="button"
+                                                        class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><a download="productos"
+                                                           th:href="@{/download/pdf}"><i
+                                                                class="ti-pencil-alt"></i></a></button>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+
+
+
+
+                                                <td>1</td>
+                                                <td><span class="font-medium">PDF</span>
+                                                </td>
+                                                
+                                                <td><span>Factura</span>
+                                                   
+                                                </td>
+                                                
+
+
+
+                                                
+                                                	<form th:action="@{/import/excel}" method="post" enctype="multipart/form-data">
+                                                    <td >
+                                                    <input style="width:300px" type="file" name="file" accept="excel/xls" />
+                                                   </td>
+                                                   <td>
+                                                    <button type="submit"
+                                                        class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><a><i
+                                                                class="ti-pencil-alt"></i></a></button>
+                                                </td>
+                                    </form>
+
+                                            </tr>
+                                            
+                                            
+    
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- Right sidebar -->
+                    <!-- ============================================================== -->
+                    <!-- .right-sidebar -->
+
+                    <!-- ============================================================== -->
+                    <!-- End Right sidebar -->
+                    <!-- ============================================================== -->
+                </div>
+                <!-- /.container-fluid -->
+                <footer class="footer text-center"> 2021 &copy; Vinos Applause </footer>
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+        <div th:replace="fragments :: scripts-admin">
+        </div>
+</body>
+
+</html>

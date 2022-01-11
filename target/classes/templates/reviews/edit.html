@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+	<!-- ============================================================== -->
+	<!-- Preloader -->
+	<!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+	<!-- ============================================================== -->
+	<!-- Wrapper -->
+	<!-- ============================================================== -->
+	<div id="wrapper">
+
+		<nav th:replace="fragments :: nav-admin"></nav>
+		<div th:if="${session.usuario.rol.id}==2">
+			<div th:replace="fragments :: left-sidebar-employee"></div>
+		</div>
+		<div th:if="${session.usuario.rol.id}==3">
+			<div th:replace="fragments :: left-sidebar-admin"></div>
+		</div>
+		<!-- ============================================================== -->
+		<!-- Page Content -->
+		<!-- ============================================================== -->
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row bg-title">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Editar Valoración</h4>
+					</div>
+					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						<button
+							class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
+							<i class="ti-settings text-white"></i>
+						</button>
+						<ol class="breadcrumb">
+							<li><a th:text="${session.usuario.nombre}"></a></li>
+
+							<li th:if="${session.usuario.rol.id}==3"><a
+								th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+							<li th:if="${session.usuario.rol.id}==2"><a
+								th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+
+							<li class="active">Editar Valoración</li>
+						</ol>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- ============================================================== -->
+				<!-- Other sales widgets -->
+				<!-- ============================================================== -->
+
+				<!-- ============================================================== -->
+				<!-- Users table -->
+				<!-- ============================================================== -->
+
+				<!--.row-->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">Editar Valoración</div>
+							<div class="panel-wrapper collapse in" aria-expanded="true">
+								<div class="panel-body">
+
+
+
+
+
+
+
+
+
+									<form th:action="@{/reviews/edit/submit}"
+										th:object="${valoracion}" method="post">
+
+
+
+										<div class="form-body">
+											<h3 class="box-title">Datos Categoría</h3>
+											<hr>
+											<input type="hidden" id="id" name="id" placeholder="id"
+												th:field="*{id}" readonly />
+												
+												<input
+				class="form-control" type="hidden" id="name" name="producto.nombre"
+				placeholder="Nombre" th:field="*{baja}" />
+												
+												<input
+															class="form-control" type="hidden" id="name"
+															name="baja" placeholder="Nombre"
+															th:field="*{baja}" />
+											<input
+															class="form-control" type="hidden" id="name"
+															name="producto.nombre" placeholder="Nombre"
+															th:field="*{producto.id}" />
+															<input
+															class="form-control" type="hidden" id="name"
+															name="producto.nombre" placeholder="Nombre"
+															th:field="*{usuario.id}" />
+
+											<div class="row">
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Producto</label> <input
+															class="form-control" type="text" id="name"
+															name="producto.nombre" placeholder="Nombre"
+															th:field="*{producto.nombre}" /><span class="help-block">
+															<span class="help-block"> </span>
+													</div>
+												</div>
+
+												<!--/span-->
+
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Valoración</label> <input
+															class="form-control" type="number" id="name"max="5"
+															name="valoracion" placeholder="Nombre"
+															th:field="*{valoracion}" /><span class="help-block">
+															<span class="help-block"> </span>
+													</div>
+												</div>
+
+											</div>
+											<div class="row">
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Usuario</label> <input
+															class="form-control" type="text" id="name"
+															name="usuario.nombre" placeholder="Nombre"
+															th:field="*{usuario.nombre}" />
+															<span class="help-block"> </span>
+													</div>
+												</div>
+
+												<!--/span-->
+												
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Comentario</label> <input
+															class="form-control" type="text" id="name"
+															name="comentario" placeholder="Nombre"
+															th:field="*{comentario}" />
+															<span class="help-block"> </span>
+													</div>
+												</div>
+
+												
+											</div>
+
+
+										<div class="form-actions">
+											<button type="submit" class="btn btn-success">
+												<i class="fa fa-check"></i> Guardar
+											</button>
+											<button type="submit"
+												onclick="window.history.go(-1); return false;"
+												class="btn btn-default">Cancelar</button>
+										</div>
+
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--./row-->
+
+		</div>
+
+
+				<!-- ============================================================== -->
+				<!-- Right sidebar -->
+				<!-- ============================================================== -->
+				<!-- .right-sidebar -->
+
+				<!-- ============================================================== -->
+				<!-- End Right sidebar -->
+				<!-- ============================================================== -->
+			<!-- /.container-fluid -->
+			<footer class="footer text-center"> 2021 &copy; Vinos
+				Applause </footer>
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+	<div th:replace="fragments :: scripts-admin"></div>
+</body>
+
+</html>

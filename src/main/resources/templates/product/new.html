@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+
+
+ <nav th:replace="fragments :: nav-admin"></nav>
+        <div th:if="${session.usuario.rol.id}==2"><div th:replace="fragments :: left-sidebar-employee"></div></div>
+        <div th:if="${session.usuario.rol.id}==3"><div th:replace="fragments :: left-sidebar-admin"></div></div>
+        
+        
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row bg-title">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Productos</h4>
+					</div>
+					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						<button
+							class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
+							<i class="ti-settings text-white"></i>
+						</button>
+						<ol class="breadcrumb">
+						  <li><a th:text="${session.usuario.nombre}"></a></li>
+                        
+                             <li th:if="${session.usuario.rol.id}==3"><a th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+                            <li th:if="${session.usuario.rol.id}==2"><a th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+						
+							<li class="active">Añadir Productos</li>
+						</ol>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+                <!-- ============================================================== -->
+                <!-- Other sales widgets -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- Users table -->
+                <!-- ============================================================== -->
+
+                <!--.row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Añadir Productos</div>
+                            <div class="panel-wrapper collapse in" aria-expanded="true">
+                                <div class="panel-body">
+<form th:action="@{/product/add/submit}" th:object="${producto}"
+					method="post" enctype="multipart/form-data">
+
+                                        <div class="form-body">
+                                            <h3 class="box-title">Nuevo Producto</h3>
+                                            <hr>
+                                            
+                                            <div class="row">
+                                            
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">First Name</label>
+                                                        <input class="form-control" type="text" id="name" name="nombre" placeholder="Nombre" th:field="*{nombre}" required/><span class="help-block"> 
+                                                     <span class="help-block">
+                                                         </span>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                               <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Categoria</label>
+                                                        <select class="form-control" name="id"
+                                                            th:placeholder="Categoria"  th:field="*{categoria.id}">
+                                                            <option  th:each="cat : ${list}" th:value="${cat.id}" th:text="${cat.nombre}" ></option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Precio</label>
+                                                        <input type="number" class="form-control"
+                                                            placeholder="" th:field="*{precio}" required>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                 <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Stock</label>
+                                                        <input type="number" class="form-control"
+                                                            placeholder="" th:field="*{stock}" required>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                           
+                                            <h3 class="box-title m-t-40">Más Datos</h3>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12 ">
+                                                    <div class="form-group">
+                                                        <label>Descripción</label>
+                                                        <textarea type="text" class="form-control" th:field="*{descripcion}" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Impuesto</label>
+                                                        <select class="form-control" name="id"
+                                                            th:placeholder="Categoria"  th:field="*{impuesto.id}">
+                                                            <option  th:each="cat : ${listTax}" th:value="${cat.id}" th:text="${cat.impuesto}"></option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                    
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Imagen</label>
+                                                        <!--  <input type="text" class="form-control" th:field="*{imagen}"> -->
+                                                        <input type="file" name="image" accept="image/png, image/jpeg" />
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                           
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
+                                                Guardar</button>
+                                            <button type="button" class="btn btn-default">Cancelar</button>
+                                        </div>
+                                        
+                                        <div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--./row-->
+
+
+
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2021 &copy; Vinos Applause </footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <div th:replace="fragments :: scripts-admin">
+    </div>
+</body>
+
+</html>

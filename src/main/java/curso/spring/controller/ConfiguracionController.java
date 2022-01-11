@@ -14,6 +14,11 @@ import curso.spring.model.Configuracion;
 import curso.spring.service.CategoriasService;
 import curso.spring.service.ConfiguracionService;
 
+/**
+ * CRUD entidad Configuraciones
+ * @author Gonzalo
+ *
+ */
 @Controller
 @RequestMapping("/config")
 public class ConfiguracionController {
@@ -58,7 +63,5 @@ public class ConfiguracionController {
 		return "redirect:/config/list";
 
 	}
-	
-	
 
 }

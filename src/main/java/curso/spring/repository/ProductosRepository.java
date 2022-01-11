@@ -11,7 +11,21 @@ import curso.spring.model.Productos;
 @Repository
 public interface ProductosRepository extends JpaRepository<Productos, Integer> {
 	
-	@Query(value="select * from productos where id_categoria=?1", nativeQuery=true)
+	@Query(value="select * from productos where categoria_id=?1", nativeQuery=true)
 	List<Productos> getProductsByCategoria(Integer id_categoria);
+
+	@Query(value="select * from productos where precio<=?1 and precio >=?2", nativeQuery=true)
+	List<Productos> getProductsByPrecio(Double precio1, Double precio2);
+	
+	@Query(value="select * from productos where nombre=?1", nativeQuery=true)
+    public List<Productos> search(String keyword);
+	
+	@Query(value="select stock from productos p where id=?1", nativeQuery=true)
+    public int checkStock(int id);
+	
+	public Productos findById(int id);
+
+	@Query(value="select * from productos where baja=0 and stock>0", nativeQuery=true)
+	public List<Productos> getAllProductsCatalog();
 
 }

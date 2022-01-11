@@ -6,13 +6,13 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
-<head th:replace="fragments :: head">
+<head th:replace="fragments :: front-simple-header">
 
 </head>
 
 <body>
-	<div th:replace="fragments :: loader"></div>
 	<div th:replace="fragments :: nav-container"></div>
+
 
 	<div class="main-container">
 		<header class="fullscreen-element no-pad centered-text">
@@ -25,12 +25,20 @@
 				<div class="row">
 					<div class="col-md-7 col-sm-8">
 
-						<h1 class="text-white">Denominación de Origen Toro. Vinos
-							intensos, potentes, pero sobre todo, elegantes elaborados
-							mayoritariamente con nuestra uva.</h1>
-						<p class="lead text-white">Excepcional e intenso.</p>
-						<a th:href="@{/login}" class="btn btn-primary btn-white inner-link" target="_self">Login</a> 
-						<a th:href="@{/signup}" class="btn btn-primary btn-filled inner-link" target="_self">Date de alta</a>
+						<h1 class="text-white"
+							th:text="${session.diccionario.getString('index_h1')}">Estuches
+							regalo, Grandes vinos, accesorios. Regalos perfectos para los
+							amantes del vino. Te garantizamos la calidad y los precios más
+							bajos. Regalos para todos los bolsillos.</h1>
+						<p class="lead text-white"
+							th:text="${session.diccionario.getString('index_main_p')}">Colección
+							de Vinos excepcional.</p>
+						<a th:href="@{/login}"
+							class="btn btn-primary btn-white inner-link" target="_self"
+							th:text="${session.diccionario.getString('login')}">Login</a> <a
+							th:href="@{/signup}"
+							class="btn btn-primary btn-filled inner-link" target="_self"
+							th:text="${session.diccionario.getString('signup')}">Signup</a>
 					</div>
 				</div>
 			</div>
@@ -38,37 +46,74 @@
 	</div>
 
 	<div class="main-container">
+
+
 		<section class="team-1">
+			<div class="container-filter-wine">
+
+				<div class="filter-wine-row">
+					<form th:action="@{/search/keyword}" th:object="${producto}"
+						method="get">
+						<input class="input-wine" type="search" th:placeholder="${session.diccionario.getString('type')}"
+							name="keyword">
+						<button class="search-button-wine" th:text="${session.diccionario.getString('buscar')}">Buscar</button>
+
+					</form>
+				</div>
+				<div class="filter-wine-row">
+					<form th:action="@{/search/categ}" th:object="${categoria}"
+						method="get">
+						<select class="input-wine3" name="id">
+							<option th:each="categoria : ${catList}"
+								th:value="${categoria.id}" th:text="${categoria.nombre}" />
+						</select>
+						<button class="search-button-wine" th:text="${session.diccionario.getString('buscar')}">Buscar</button>
+
+
+					</form>
+				</div>
+					<div class="filter-wine-row">
+					<form th:action="@{/search/cat/precio}" th:object="${producto}"
+						method="get">
+						<input class="input-wine" type="number" id="precio" name="precio"
+							th:placeholder="${session.diccionario.getString('precio_max')}" /> <input class="input-wine"
+							type="number" id="precio" name="precio2"
+							th:placeholder="${session.diccionario.getString('precio_min')}" />
+
+						<button class="search-button-wine" th:text="${session.diccionario.getString('buscar')}">Buscar</button>
+					</form>
+				</div>
+			</div>
+
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center">
-						<h1>Meet collection of our wines</h1>
-						<p class="lead">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-							exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat.</p>
+						<h1 th:text="${session.diccionario.getString('body_h1')}">La
+							mejor selección de vinos</h1>
+						<p class="lead"></p>
 					</div>
 				</div>
 
 				<div class="row">
-					<div th:each="producto: ${productList}" class="col-md-2 col-sm-4">
+					<div th:each="producto: ${productList}" style="width: 20%;" class="col-md-2 col-sm-4">
 						<div class="team-1-member">
 							<img alt="Team Member" class="background-image"
-								th:src="${producto.imagen}">
+								th:src="'/img/productos/'+${producto.imagen}">
 							<h5 th:text="${producto.nombre}"></h5>
 							<span th:text="${producto.precio} + €"></span><br>
-							<p th:text="${producto.descripcion}">
-								</pth:text>
-							</p>
-							
-								<button type="button" class=""/><a th:href="@{/productos/detail/}+${producto.id}">Detalle
-								<span class="glyphicon glyphicon-eye-open"></span></span></a>
-								</button>
+							<br>
+							<br>
+							<button type="button" class="button-easy" />
+							<a class="a-index" th:href="@{/product/detail/}+${producto.id}"><span class="glyphicon glyphicon-eye-open"></span><br><span th:text="${session.diccionario.getString('detalle')}">Detalle</span>
+								</a>
+							</button>
+
+							<button type="button" class="button-easy" />
+							<a class="a-index" th:href="@{/product/addCarrito2/}+${producto.id}"><span class="glyphicon glyphicon-shopping-cart"></span><span th:text="${session.diccionario.getString('comprar')}">Comprar</span> 
 								
-								<button type="button" class=""/><a th:href="@{/productos/addCarrito/}+${producto.id}">Comprar
-								<span class="glyphicon glyphicon-shopping-cart"></span></a>
-								</button>
+							</a>
+							</button>
+
 						</div>
 
 					</div>
@@ -79,20 +124,7 @@
 		</section>
 
 	</div>
+	<div th:replace="fragments :: scripts-index"></div>
 	<footer th:replace="fragments :: footer"></footer>
-
-	<script th:src="@{js/jquery.min.js}"></script>
-	<script th:src="@{js/jquery.plugin.min.js}"></script>
-	<script th:src="@{js/bootstrap.min.js}"></script>
-	<script th:src="@{js/jquery.flexslider-min.js}"></script>
-	<script th:src="@{js/smooth-scroll.min.js}"></script>
-	<script th:src="@{js/skrollr.min.js}"></script>
-	<script th:src="@{js/spectragram.min.js}"></script>
-	<script th:src="@{js/scrollReveal.min.js}"></script>
-	<script th:src="@{js/isotope.min.js}"></script>
-	<script th:src="@{js/twitterFetcher_v10_min.js}"></script>
-	<script th:src="@{js/lightbox.min.js}"></script>
-	<script th:src="@{js/jquery.countdown.min.js}"></script>
-	<script th:src="@{js/scripts.js}"></script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments :: head"></head>
+
+<body>
+	<div th:replace="fragments :: nav-container"></div>
+
+
+
+	<div class="table-container">
+
+		<h3 class="h3-tabla">Detalles Pedido</h3>
+		<div>
+			<table class="table table-striped">
+				<tr>
+					<th>Producto</th>
+					<th>Precio</th>
+					<th>Unidades</th>
+					<th>Impuesto</th>
+					<th>Total</th>
+					<th>Cliente</th>
+					<th>Estado</th>
+					<th></th>
+			<!-- HTML !-->
+				</tr>
+
+
+
+				<tr th:each="detalle : ${list}">
+					<td th:text="${detalle.producto.nombre}"></td>
+					<td th:text="${detalle.precioUnidad}+' €'"></td>
+					<td th:text="${detalle.unidades}">Id</td>
+					<td th:text="${detalle.impuesto}+' %'">Id</td>
+					<td th:text="${detalle.total}+' €'">Id</td>	
+					
+					<td><span th:text="${detalle.pedido.usuario.email}"></span>
+												<br /> <span
+												th:text="${detalle.pedido.usuario.nombre} + ' '+ ${detalle.pedido.usuario.apellido1}"
+												class="text-muted"></span></td>
+									
+					<td th:if="${detalle.pedido.estado}!=pendiente"><span
+												th:text="${detalle.pedido.estado}"></span></td>
+
+											<td th:if="${detalle.pedido.estado} == 'pendiente'">
+												<form th:action="@{/details/cancel}" method="post">
+
+													<input type="hidden" name="id" th:value="${detalle.id}" />
+
+													<p>
+														<button class="button-12" role="button" type="submit"
+															value="Enviar" />
+														Cancelar
+														</button>
+													</p>
+											</td>
+										<td th:if="${detalle.pedido.estado}==enviado"><a th:href="@{/reviews/add/}+${detalle.producto.id}">Valorar</a></td>
+										
+											
+					</form></div>
+					
+				</tr>
+
+
+			</table>
+		</div>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+	<div th:replace="fragments :: scripts-index"></div>
+
+</body>
+</html>

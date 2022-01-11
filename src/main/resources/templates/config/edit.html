@@ -1,23 +1,155 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Editar Config</title>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
 </head>
-<body>
-	<h3>Editar Categoria</h3>
-    <form th:action="@{/config/edit/submit}" th:object="${configuracion}" method="post" >
-	    <input type="text" id="clave" name="clave" placeholder="Clave" th:field="*{clave}"/>
-	    <br/><br/>
-	      <input type="text" id="valor" name="valor" placeholder="Valor" th:field="*{valor}"/>
-	    <br/><br/>
-	    <input type="text" id="tipo" name="tipo" placeholder="Tipo" th:field="*{tipo}"/>
-	    <br/><br/>
-	    <button>Guardar</button>
-	    
-	    <input type="hidden" id="id" name="id" th:field="*{id}"/>
-	</form>
-	
-	<p><a th:href="@{/}">Inicio</a></p>
+
+<body class="fix-header">
+	<!-- ============================================================== -->
+	<!-- Preloader -->
+	<!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+	<!-- ============================================================== -->
+	<!-- Wrapper -->
+	<!-- ============================================================== -->
+	<div id="wrapper">
+
+
+		<nav th:replace="fragments :: nav-admin"></nav>
+		<div th:replace="fragments :: left-sidebar-admin"></div>
+		<!-- ============================================================== -->
+		<!-- Page Content -->
+		<!-- ============================================================== -->
+		<div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Dashboard</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <button
+                            class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i
+                                class="ti-settings text-white"></i></button>
+                        <ol class="breadcrumb">
+                              <li><a th:text="${session.usuario.nombre}"></a></li>
+                        
+                             <li th:if="${session.usuario.rol.id}==3"><a th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+                            <li th:if="${session.usuario.rol.id}==2"><a th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+
+                            <li class="active">Editar Configuración</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+				<!-- ============================================================== -->
+				<!-- Other sales widgets -->
+				<!-- ============================================================== -->
+
+				<!-- ============================================================== -->
+				<!-- Users table -->
+				<!-- ============================================================== -->
+
+				<!--.row-->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">Editar Configuración</div>
+							<div class="panel-wrapper collapse in" aria-expanded="true">
+								<div class="panel-body">
+
+
+									<form th:action="@{/config/edit/submit}"
+										th:object="${configuracion}" method="post">
+
+
+
+										<div class="form-body">
+											<h3 class="box-title">Datos Configuración</h3>
+											<hr>
+											<input type="hidden" id="clave" name="id" placeholder="Id"
+												th:field="*{id}" readonly />
+
+											<div class="row">
+
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label">Clave</label> <input
+															class="form-control" type="text" id="clave" name="clave"
+															placeholder="Clave" th:field="*{clave}" required /><span
+															class="help-block"> <span class="help-block">
+														</span>
+													</div>
+												</div>
+
+												<!--/span-->
+											</div>
+											<div class="row">
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Valor</label> <input
+															class="form-control" type="text" id="valor" name="valor"
+															placeholder="Valor" th:field="*{valor}" /><span
+															class="help-block"> <span class="help-block">
+														</span>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Tipo</label> <input
+															class="form-control" type="text" id="tipo" name="tipo"
+															placeholder="Tipo" th:field="*{tipo}" /><span
+															class="help-block"> <span class="help-block">
+														</span>
+													</div>
+												</div>
+											</div>
+
+
+
+										</div>
+										<div class="form-actions">
+											<button type="submit" class="btn btn-success">
+												<i class="fa fa-check"></i> Guardar
+											</button>
+											<button type="submit"
+												onclick="window.history.go(-1); return false;"
+												class="btn btn-default">Cancelar</button>
+										</div>
+
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--./row-->
+
+
+
+				<!-- ============================================================== -->
+				<!-- Right sidebar -->
+				<!-- ============================================================== -->
+				<!-- .right-sidebar -->
+
+				<!-- ============================================================== -->
+				<!-- End Right sidebar -->
+				<!-- ============================================================== -->
+			</div>
+			<!-- /.container-fluid -->
+			<footer class="footer text-center"> 2021 &copy; Vinos
+				Applause </footer>
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+	<div th:replace="fragments :: scripts-admin"></div>
 </body>
+
 </html>

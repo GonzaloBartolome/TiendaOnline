@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+	<!-- ============================================================== -->
+	<!-- Preloader -->
+	<!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+	<!-- ============================================================== -->
+	<!-- Wrapper -->
+	<!-- ============================================================== -->
+	<div id="wrapper">
+
+
+		<nav th:replace="fragments :: nav-admin"></nav>
+		<div th:if="${session.usuario.rol.id}==2">
+			<div th:replace="fragments :: left-sidebar-employee"></div>
+		</div>
+		<div th:if="${session.usuario.rol.id}==3">
+			<div th:replace="fragments :: left-sidebar-admin"></div>
+		</div>
+
+		<!-- ============================================================== -->
+		<!-- Page Content -->
+		<!-- ============================================================== -->
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row bg-title">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Productos</h4>
+					</div>
+					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						<button
+							class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
+							<i class="ti-settings text-white"></i>
+						</button>
+						<ol class="breadcrumb">
+							<li><a th:text="${session.usuario.nombre}"></a></li>
+
+							<li th:if="${session.usuario.rol.id}==3"><a
+								th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+							<li th:if="${session.usuario.rol.id}==2"><a
+								th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+
+							<li class="active">Productos</li>
+						</ol>
+					</div> 
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- ============================================================== -->
+				<!-- Other sales widgets -->
+				<!-- ============================================================== -->
+
+				<!-- ============================================================== -->
+				<!-- Users table -->
+				<!-- ============================================================== -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-heading">Gestión de Productos</div>
+							<div class="table-responsive">
+								<div>
+
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<form th:action="@{/search/cat}" th:object="${categoria}"
+												method="get">
+												<label class="control-label">Filtrar por Categoria </label><br>
+												<select style="width: 50%; display: inline;"
+													class="form-control" name="id" th:placeholder="categoria">
+													<option th:each="cat : ${list}" th:value="${cat.id}"
+														th:text="${cat.nombre}"></option>
+
+												</select>
+												<button style="display: inline;" class="search-button-wine">Buscar</button>
+										</div>
+
+										</form>
+									</div>
+
+									<div>
+									<button>
+										<a th:href="@{/product/export}">Exportar Productos</a>
+									</button>
+									
+									<form style="display: inline-block;" th:action="@{/product/import}" method="post" enctype="multipart/form-data">
+									<input type="file" name="excel" accept="application/vnd.ms-excel" />
+									
+									<button style="color:#337ab7"type="submit">
+										Importar Productos
+									</button>
+									</form>
+								</div>
+								</div>
+								<br> <br>
+
+
+
+
+								<table class="table table-hover manage-u-table">
+									<thead>
+										<tr>
+											<th style="width: 70px;" class="text-center">#</th>
+											<th>Producto</th>
+											<th>Categoria</th>
+											<th>Precio</th>
+											<th>Stock</th>
+											<th>Acciones</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+										<tr th:each="producto: ${productList}">
+											<td th:text="${producto.id}" class="text-center"></td>
+											<td><span th:text="${producto.nombre}"
+												class="font-medium"></span></td>
+											<td><span th:text="${producto.categoria.nombre}"></span></td>
+
+											<td><span th:text="${producto.precio} + ' €'"></span></td>
+											<td><span th:text="${producto.stock}" class="text-muted"></span></td>
+
+
+
+
+
+											<td>
+												<button th:if="${producto.baja}==false" type="button"
+													class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+													<a th:href="@{/product/delete/}+${producto.id}"><i
+														class="icon-trash"></i></a>
+												</button>
+												<button type="button"
+													class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+													<a th:href="@{/product/edit/}+${producto.id}"><i
+														class="ti-pencil-alt"></i></a>
+												</button>
+												<button th:if="${producto.baja}==false" type="button"
+													class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+													<a th:href="@{/product/detail/}+${producto.id}"><i
+														class="fa fa-eye"></i></a>
+												</button>
+
+											</td>
+											<td th:if="${producto.stock}==0" th:text="'Sin' + ' Stock'"></td>
+											<td th:if="${producto.baja}==true"
+												th:text="'Fuera' + ' Catalogo'"></td>
+
+
+
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ============================================================== -->
+				<!-- Right sidebar -->
+				<!-- ============================================================== -->
+				<!-- .right-sidebar -->
+
+				<!-- ============================================================== -->
+				<!-- End Right sidebar -->
+				<!-- ============================================================== -->
+			</div>
+			<!-- /.container-fluid -->
+			<footer class="footer text-center"> 2021 &copy; Vinos
+				Applause </footer>
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+	<div th:replace="fragments :: scripts-admin"></div>
+</body>
+
+</html>

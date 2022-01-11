@@ -9,7 +9,13 @@ import curso.spring.model.Pedidos;
 
 public interface PedidosRepository extends JpaRepository<Pedidos, Integer>{
 
-	@Query(value="select * from pedidos where id_usuario=?1", nativeQuery=true)
+	@Query(value="select * from pedidos where usuario_id=?1", nativeQuery=true)
 	List<Pedidos> getPedidoByUser(Integer id_usuario);
+	
+	@Query(value="select * from pedidos where estado=?1", nativeQuery=true)
+	List<Pedidos> getPedidoByEstado(String estado);
+	
+	@Query(value="select * from pedidos where metodo_pago_id=?1", nativeQuery=true)
+	List<Pedidos> pedidosByMethod (int id);
 
 }

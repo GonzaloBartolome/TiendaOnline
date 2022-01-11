@@ -3,19 +3,27 @@ package curso.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import curso.spring.model.Categorias;
 import curso.spring.model.Productos;
 import curso.spring.service.CategoriasService;
 import curso.spring.service.ProductosService;
 
+/**
+ * Controlador de los filtros de busqueda
+ * @author Gonzalo
+ *
+ */
 @Controller
-@RequestMapping("/buscar")
+@RequestMapping("/search")
 public class BusquedasController {
 
 	@Autowired
@@ -24,34 +32,67 @@ public class BusquedasController {
 	@Autowired
 	ProductosService productoS;
 
+	/**
+	 * Filtro busqueda por categoria
+	 * @param model
+	 * @param id
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@GetMapping("/categ")
+	public String buscarByCategoria(Model model , @RequestParam int id, RedirectAttributes redirectAttributes) {
+
+		List<Productos> productListCat = productoS.getProductsByCat(id);
+
+		redirectAttributes.addFlashAttribute("productList", productListCat);
+
+		return "redirect:/index";
+	}
+	
 	
 	@GetMapping("/cat")
-	public String buscarCategorias(Model model) {
+	public String buscarByCategoria(Model model , @RequestParam int id) {
+
+		List<Productos> productListCat = productoS.getProductsByCat(id);
+
+		model.addAttribute("productList", productListCat);
+		model.addAttribute("list", catS.getAllCategorias());
 
 
-		List<Categorias> catList = catS.getAllCategorias();
-		
-		model.addAttribute("catList", catList);
-		
-		model.addAttribute("categoria", new Categorias());
-		
-		List<Productos> productList = productoS.getAllProducts();
-
-		model.addAttribute("productList", productList);
-
-		return "search/index";
+		return "product/list";
 	}
 
-	@GetMapping("/cat/{id}")
-	public String buscarByCategoria(Model model , @PathVariable int id) {
+	/**
+	 * Filtro busqueda por precio
+	 * @param precio
+	 * @param precio2
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@GetMapping("/cat/precio")
+	public String buscarByPrecio(@RequestParam double precio, @RequestParam double precio2, RedirectAttributes redirectAttributes){
+
+		List<Productos> productListPrecio = productoS.getProductsByPrecio(precio, precio2);
+
+		redirectAttributes.addFlashAttribute("productListPrecio", productListPrecio);
 
 
-		List<Productos> productList = productoS.getProductsByCat(id);
-
-		model.addAttribute("productList", productList);
-
-
-		return "search/cat";
+		return "redirect:/index";
 	}
 
+	/**
+	 * Filtro Busqueda por nombre
+	 * @param keyword
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@GetMapping("/keyword")
+	public String buscarByKeyword(@RequestParam String keyword, RedirectAttributes redirectAttributes) {
+
+		List<Productos> productList = productoS.searchByKeyword(keyword);
+
+		redirectAttributes.addFlashAttribute("productList", productList);
+
+		return "redirect:/index";
+	}
 }

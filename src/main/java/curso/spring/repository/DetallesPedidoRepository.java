@@ -9,7 +9,12 @@ import curso.spring.model.DetallesPedido;
 
 public interface DetallesPedidoRepository extends JpaRepository<DetallesPedido, Integer>{
 
-	@Query(value="select * from detalles_pedido where id_pedido=?1", nativeQuery=true)
+	@Query(value="select * from detalles_pedido where pedido_id=?1", nativeQuery=true)
 	List<DetallesPedido> getDetailsByPedido(Integer id_pedido);
+	
+	@Query(value="select * from detalles_pedido where pedido_id=?1", nativeQuery=true)
+	List<DetallesPedido> getByPedidoId(Integer pedido_id);
+	
+	
 
 }

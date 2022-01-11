@@ -58,5 +58,16 @@ public class UnidadesCarritoService {
 		}
 		return null;
 	}
+	
+	public int getUnitsLinea(ArrayList<UnidadesCarrito> carrito, Productos producto) {
+
+		Integer total = 0;
+		UnidadesCarrito linea = new UnidadesCarrito();
+		linea = getLineaByProduct(carrito, producto);
+		
+		total = linea.getUnidades();
+		
+		return total;
+	} 
 
 }

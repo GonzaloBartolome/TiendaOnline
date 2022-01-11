@@ -41,7 +41,34 @@ public class ValoracionesService {
 	public Valoraciones getValoracionById(Integer id) {
 
 		return valRepo.getById(id);
+	}
+	
+	public List<Valoraciones> getValoracionesByIdProduct(Integer id) {
 
+		List<Valoraciones> list = valRepo.getValByIdProduct(id);
+		
+		return list;
+	}
+	
+	public int getNumValoraciones(List<Valoraciones> list) {
+		int numVal=0;
+		if (list.size() != 0) {
+			numVal = list.size();
+		}
+		return numVal;
+	}
+	
+	public int getMediaVal(List<Valoraciones> list) {
+		
+		int media = 0;
+		
+		for (Valoraciones valoracion : list) {
+			media += valoracion.getValoracion();
+		}
+		
+		media = media/list.size();
+		
+		return media;	
 	}
 
 }

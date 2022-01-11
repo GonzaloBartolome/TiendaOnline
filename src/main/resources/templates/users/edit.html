@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+	<!-- ============================================================== -->
+	<!-- Preloader -->
+	<!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+	<!-- ============================================================== -->
+	<!-- Wrapper -->
+	<!-- ============================================================== -->
+	<div id="wrapper">
+
+
+         <nav th:replace="fragments :: nav-admin"></nav>
+        <div th:if="${session.usuario.rol.id}==2"><div th:replace="fragments :: left-sidebar-employee"></div></div>
+        <div th:if="${session.usuario.rol.id}==3"><div th:replace="fragments :: left-sidebar-admin"></div></div>
+        
+		<!-- ============================================================== -->
+		<!-- Page Content -->
+		<!-- ============================================================== -->
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row bg-title">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Gestión Usuarios</h4>
+					</div>
+					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						<button
+							class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
+							<i class="ti-settings text-white"></i>
+						</button>
+						<ol class="breadcrumb">
+							<li><a th:text="${session.usuario.nombre}"></a></li>
+                        
+                             <li th:if="${session.usuario.rol.id}==3"><a th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+                            <li th:if="${session.usuario.rol.id}==2"><a th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+							<li class="active">Editar Usuarios</li>
+						</ol>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				
+				
+				
+				<!-- ============================================================== -->
+				<!-- Other sales widgets -->
+				<!-- ============================================================== -->
+
+				<!-- ============================================================== -->
+				<!-- Users table -->
+				<!-- ============================================================== -->
+
+				<!--.row-->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">Editar Usuario</div>
+							<div class="panel-wrapper collapse in" aria-expanded="true">
+								<div class="panel-body">
+									<form th:action="@{/users/edit/submit}" th:object="${usuario}"
+										method="post">
+
+											<input type="hidden" id="name" name="clave" placeholder="Nombre" th:field="*{clave}" />
+<input type="hidden" id="name" name="id"
+											placeholder="Nombre" th:field="*{id}" />
+
+										<div class="form-body">
+											<h3 class="box-title">Datos de Usuario</h3>
+											<hr>
+
+											<div class="row">
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Nombre</label> <input
+															class="form-control" type="text" id="name" name="name"
+															placeholder="Nombre" th:field="*{nombre}" /><span
+															class="help-block"> <span class="help-block">
+														</span>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Email</label> <input
+															class="form-control" type="email" id="email" name="email"
+															placeholder="Email" th:field="*{email}" /><span
+															class="help-block"> <span class="help-block">
+														</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Rol</label> <input
+															class="form-control" type="text"
+															th:placeholder="${usuario.rol.rol}" readonly>
+													</div>
+												</div>
+												<input type="hidden" id="rol" name="rol.id"
+													th:field="*{rol.id}" />
+												<!--/span-->
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">DNI</label> <input
+															class="form-control" type="text" id="name" name="dni"
+															placeholder="Nombre" th:field="*{dni}">
+													</div>
+												</div>
+
+
+
+
+											</div>
+
+
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Apellido1</label> <input
+															class="form-control" type="text" id="name"
+															name="apellido1" placeholder="Nombre"
+															th:field="*{apellido1}">
+													</div>
+												</div>
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Apellido2</label> <input
+															class="form-control" type="text" id="name"
+															name="apellido2" placeholder="Nombre"
+															th:field="*{apellido2}">
+													</div>
+												</div>
+												<!--/span-->
+
+												<!--/span-->
+											</div>
+											<h3 class="box-title m-t-40">Más Datos</h3>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 ">
+													<div class="form-group">
+														<label class="control-label">Dirección</label> <input
+															class="form-control" type="text" id="direccion"
+															name="direccion" placeholder="Direccion"
+															th:field="*{direccion}">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<!--/span-->
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Localidad</label> <input
+															class="form-control" type="text" id="localidad"
+															name="localidad" placeholder="Localidad"
+															th:field="*{localidad}">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Provincia</label> <input
+															class="form-control" type="text" id="provincia"
+															name="provincia" placeholder="Provincia"
+															th:field="*{provincia}">
+													</div>
+												</div>
+											</div>
+
+
+
+
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label>Telefono</label> <input type="text"
+															class="form-control" th:field="*{telefono}">
+													</div>
+												</div>
+
+
+												<div th:if="${usuario.baja}==false" class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Dar de Baja</label>
+													
+															<div >
+														<button style="background-color:red; color:white;"type="submit" class="btn btn-success">
+															<a th:href="@{/users/delete/}+${usuario.id}"><i
+																class="fa fa-check"></i> Baja</a>
+														</button>
+</div>
+													</div>
+												</div>
+												
+												<div th:if="${usuario.baja}==true" class="col-md-6">
+													<div class="form-group">
+														<label class="control-label">Dar de Alta</label>
+													
+															<div >
+														<button style="background-color:blue; color:white;"type="submit" class="btn btn-success">
+															<a th:href="@{/users/alta/}+${usuario.id}"><i
+																class="fa fa-check"></i> Alta</a>
+														</button>
+</div>
+													</div>
+												</div>
+
+												<!--/span-->
+											</div>
+											<!--/row-->
+
+										</div>
+										<div class="form-actions">
+											<button type="submit" class="btn btn-success">
+												<i class="fa fa-check"></i> Guardar
+											</button>
+											<button type="submit" onclick="window.history.go(-1); return false;" class="btn btn-default">Cancelar</button>
+										</div>
+
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--./row-->
+
+
+
+				<!-- ============================================================== -->
+				<!-- Right sidebar -->
+				<!-- ============================================================== -->
+				<!-- .right-sidebar -->
+
+				<!-- ============================================================== -->
+				<!-- End Right sidebar -->
+				<!-- ============================================================== -->
+			</div>
+			<!-- /.container-fluid -->
+			<footer class="footer text-center"> 2021 &copy; Vinos
+				Applause </footer>
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+	<div th:replace="fragments :: scripts-admin"></div>
+</body>
+
+</html>

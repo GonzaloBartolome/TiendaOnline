@@ -3,23 +3,33 @@ package curso.spring.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import curso.spring.controller.MainController;
 import curso.spring.model.Configuracion;
 import curso.spring.model.DetallesPedido;
 import curso.spring.model.MetodosPago;
 import curso.spring.model.Pedidos;
+import curso.spring.model.Productos;
 import curso.spring.model.UnidadesCarrito;
 import curso.spring.model.Usuarios;
 import curso.spring.repository.ConfiguracionRepository;
 
+
+/**
+ * Clase Servicio logica proceso de pago
+ * @author Newland
+ *
+ */
 @Service
 public class PaymentService {
 	
-	@Autowired
-	ConfiguracionService configS;
+	Logger logger = LogManager.getLogger(PaymentService.class);
+
 	
 	@Autowired
 	PedidosService pedidoS;
@@ -30,61 +40,39 @@ public class PaymentService {
 	@Autowired
 	MetodosPagoService metodoS;
 	
-	@Autowired
-	UsuariosService userS;
-	
-	
-	public String crearNumFactura(String clave) {
-		
-		List<Configuracion> config = configS.getConfigByClave(clave);
 
-		if (config == null) {
-			
-			return "que cojones";
-		}
-		
-		for (Configuracion configuracion : config) {
-			
-			String valor = configuracion.getValor();
-			
-			int contador = Integer.parseInt(configuracion.getValor()) + 1;
-			
-			configuracion.setValor(Integer.toString(contador));
-			
-			configS.editConfiguracion(configuracion);
-			
-			
-			return valor;
-		}
-		
-		return null;	
-	}
 	
-	public String getMetodoPagoById(Integer id) {
-		
-		MetodosPago metodo = metodoS.getMetodosPagoById(id);
-		
-		return metodo.getMetodoPago();
-			
-	}
+	@Autowired
+	ProductosService productS;
 	
-	
-	public Pedidos addPedido(Usuarios usuario, Integer id, String clave, Double total, String estado) {
+	/**
+	 * Añade pedido a la DB despues de realizar pago
+	 * @param usuario
+	 * @param id
+	 * @param total
+	 * @param estado
+	 * @return
+	 */
+	public Pedidos addPedido(Usuarios usuario, Integer id, Double total, String estado) {
 		
 		Pedidos pedido = new Pedidos();
 		
-		pedido.setMetodoPago(getMetodoPagoById(id));
-		pedido.setId_usuario(userS.getIdUsuarioByEmail(usuario.getEmail()));
-		pedido.setNumFactura(crearNumFactura(clave));
+		pedido.setMetodoPago(metodoS.getMetodosPagoById(id));		
+		pedido.setUsuario(usuario);
 		pedido.setEstado(estado);
 		pedido.setTotal(total);
 		
 		pedidoS.addPedido(pedido);
-		
+				
 		return pedido;
 			
 	}
 	
+	/**
+	 * Puebla DB con detalles de pedido
+	 * @param carrito
+	 * @param pedido
+	 */
 	public void addDetallesPedido(ArrayList<UnidadesCarrito> carrito, Pedidos pedido) {
 		
 
@@ -92,19 +80,33 @@ public class PaymentService {
 			
 			DetallesPedido detalles = new DetallesPedido();
 			
-			detalles.setId_pedido(pedido.getId());	
-			detalles.setId_producto(unidades.getProducto().getId());
-			detalles.setImpuesto(unidades.getProducto().getImpuesto());
+			detalles.setPedido(pedido);
+			detalles.setProducto(unidades.getProducto());
+			
+			// Cambiar a tabla
+			detalles.setImpuesto((float) 21);
+			
 			detalles.setPrecioUnidad(unidades.getProducto().getPrecio());
 			detalles.setUnidades(unidades.getUnidades());
-			detalles.setTotal(unidades.getUnidades() * unidades.getProducto().getPrecio());
 			
-			detalleS.addDetallePedido(detalles);
+			// Crear metodo calcular total detalles pedido
+			detalles.setTotal(unidades.getUnidades() * unidades.getProducto().getPrecio());
+			try {
+				detalleS.addDetallePedido(detalles);
+			} catch (Exception e) {
+				logger.error(e + "Error añadir detalles Pedido durante pago");
+			}
+			
+			try {
+				productS.actualizarStockCompra(unidades.getProducto().getId(), unidades.getUnidades());
+			} catch (Exception e) {
+				logger.error(e + "Error actualizar durante pago");
+			}
 
 		}
 		
 		
 	}
 	
-
+	
 }

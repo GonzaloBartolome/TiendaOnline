@@ -11,51 +11,65 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import curso.spring.model.MetodosPago;
 import curso.spring.service.MetodosPagoService;
+import curso.spring.service.PedidosService;
 
+/**
+ * CRUD para metodos de pago
+ * @author Gonzalo
+ *
+ */
 @Controller
-@RequestMapping("/metodos")
+@RequestMapping("/method")
 public class MetodosPagoController {
 	
 	
 	@Autowired
 	MetodosPagoService metodoS;
 	
+	@Autowired
+	PedidosService pS;
+	
 	@GetMapping("/list")
 	public String listMetodo(Model model) {
 		model.addAttribute("list", metodoS.getAllMetodosPago());
-		return "metodospago/list";
+		return "method/list";
 	}
 	
 	@GetMapping("/add")
 	public String addMetodo(Model model) {
 		model.addAttribute("metodo", new MetodosPago());
-		return "metodospago/new";
+		return "method/new";
 	}
 	
 	@PostMapping("/add/submit")
 	public String createMetodo(@ModelAttribute MetodosPago metodo) {
 		metodoS.addMetodosPago(metodo);
-		return "redirect:/metodos/list";
+		return "redirect:/method/list";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteMetodo(@PathVariable int id) {
-		metodoS.deleteMetodosPago(id);
-		return "redirect:/metodos/list";
+			
+		if (pS.pedidosByMethod(id).isEmpty()) {
+			metodoS.deleteMetodosPago(id);
+		}
+		
+		return "redirect:/method/list";
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String actualizacionFormMetodo(@PathVariable int id, Model model) {
 		MetodosPago c = metodoS.getMetodosPagoById(id);
 		model.addAttribute("metodo", c);
-		return "metodospago/edit";
+		return "method/edit";
 	}
 	
 	@PostMapping("/edit/submit")
 	public String actualizarMetodo(@ModelAttribute MetodosPago metodo) {
 		metodoS.editMetodosPago(metodo);
-		return "redirect:/metodos/list";
+		return "redirect:/method/list";
 
 	}
-
+			
+	
 }

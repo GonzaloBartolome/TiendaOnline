@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+	<!-- ============================================================== -->
+	<!-- Preloader -->
+	<!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+	<!-- ============================================================== -->
+	<!-- Wrapper -->
+	<!-- ============================================================== -->
+	<div id="wrapper">
+
+
+		<nav th:replace="fragments :: nav-admin"></nav>
+		<div th:if="${session.usuario.rol.id}==2">
+			<div th:replace="fragments :: left-sidebar-employee"></div>
+		</div>
+		<div th:if="${session.usuario.rol.id}==3">
+			<div th:replace="fragments :: left-sidebar-admin"></div>
+		</div>
+
+		<!-- ============================================================== -->
+		<!-- Page Content -->
+		<!-- ============================================================== -->
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row bg-title">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Gestión Usuarios</h4>
+					</div>
+					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						<button
+							class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
+							<i class="ti-settings text-white"></i>
+						</button>
+						<ol class="breadcrumb">
+							<li><a th:text="${session.usuario.nombre}"></a></li>
+
+							<li th:if="${session.usuario.rol.id}==3"><a
+								th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+							<li th:if="${session.usuario.rol.id}==2"><a
+								th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+							<li class="active">Usuarios</li>
+						</ol>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- ============================================================== -->
+				<!-- Other sales widgets -->
+				<!-- ============================================================== -->
+
+				<!-- ============================================================== -->
+				<!-- Users table -->
+				<!-- ============================================================== -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-heading">Gestión de Usuarios</div>
+							<div class="table-responsive">
+								<div>
+
+									<form th:action="@{/users/filter/list}" th:object="${rol}"
+										method="get">
+										<div style="width: 50%; margin-left: 20%;">
+											<select style="width: 50%; display: inline;"
+												class="form-control" name="id">
+												<option th:each="rol : ${rolList}" th:value="${rol.id}"
+													th:text="${rol.rol}"></option>
+											</select>
+											<button style="display: inline;">Buscar</button>
+										</div>
+
+
+
+
+
+
+									</form>
+									<table class="table table-hover manage-u-table">
+										<thead>
+											<tr>
+												<th style="width: 70px;" class="text-center">#</th>
+												<th>Nombre</th>
+												<th>Dirección</th>
+												<th>Localidad / Provincia</th>
+												<th>Email</th>
+												<th>Telefono</th>
+
+												<th>Rol</th>
+												<th>Acciones</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="usuario : ${lista}">
+												<td th:text="${usuario.id}" class="text-center">7</td>
+												<td><span
+													th:text="${usuario.nombre} + ' ' + ${usuario.apellido1}"
+													class="font-medium"></span></td>
+												<td><span th:text="${usuario.direccion}"></span></td>
+												<td><span
+													th:text="${usuario.localidad} + ', ' + ${usuario.provincia}"
+													class="text-muted"></span></td>
+												<td><span th:text="${usuario.email}"></span></td>
+												<td><span th:text="${usuario.telefono}"
+													class="text-muted"></span></td>
+												<td th:text="${usuario.rol.rol}">Rol <br />
+												<span class="text-muted"></span></td>
+
+
+												<div th:if="${session.usuario.rol.id}==3">
+
+													<td th:if="${usuario.baja}==false">
+														<button type="button"
+															class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+															<a th:href="@{/order/list/user/}+${usuario.id}"><i
+																class="fa fa-list-ol"></i></a>
+														</button>
+
+														<button type="button"
+															class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+															<a th:href="@{/users/delete/}+${usuario.id}"><i
+																class="icon-trash"></i></a>
+														</button>
+														<button type="button"
+															class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+															<a th:href="@{/users/edit/}+${usuario.id}"><i
+																class="ti-pencil-alt"></i></a>
+														</button>
+
+													</td>
+
+													<td th:if="${usuario.baja}==true"><span></span>  <button type="button"
+															class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+															<a th:href="@{/users/edit/}+${usuario.id}"><i
+																class="ti-pencil-alt"></i></a>
+														</button><span> Baja </span></td>
+
+												</div>
+												<div th:if="${session.usuario.rol.id}==2">
+
+													<td th:if="${usuario.baja}==false">
+														<button type="button"
+															class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+															<a th:href="@{/order/list/user/}+${usuario.id}"><i
+																class="icon-trash"></i></a>
+														</button>
+
+														<button type="button"
+															class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+															<a th:href="@{/users/delete/}+${usuario.id}"><i
+																class="icon-trash"></i></a>
+														</button>
+														<button type="button"
+															class="btn btn-info btn-outline btn-circle btn-lg m-r-5">
+															<a th:href="@{/users/edit/}+${usuario.id}"><i
+																class="ti-pencil-alt"></i></a>
+														</button>
+
+													</td>
+
+													<td th:if="${usuario.baja}==true"><span>Baja</span> <span></span></td>
+
+												</div>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- ============================================================== -->
+					<!-- Right sidebar -->
+					<!-- ============================================================== -->
+					<!-- .right-sidebar -->
+
+					<!-- ============================================================== -->
+					<!-- End Right sidebar -->
+					<!-- ============================================================== -->
+				</div>
+				<!-- /.container-fluid -->
+				<footer class="footer text-center"> 2021 &copy; Vinos
+					Applause </footer>
+			</div>
+			<!-- /#page-wrapper -->
+		</div>
+		<!-- /#wrapper -->
+		<div th:replace="fragments :: scripts-admin"></div>
+</body>
+
+</html>

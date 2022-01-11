@@ -1,47 +1,66 @@
-<!DOCTYPE html>
 <html lang="en">
-<head th:fragment="head">
-<meta charset="utf-8">
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css}" rel="stylesheet">
-<!--  Header -->
-<link th:href="@{css/theme-1.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{css/flexslider.min.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{css/line-icons.min.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{css/elegant-icons.min.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{css/lightbox.min.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{css/bootstrap.min.css}" rel="stylesheet" type="text/css"
-	media="all" />
-<link th:href="@{css/custom.css}" rel="stylesheet" type="text/css" media="all" />
-<!--[if gte IE 9]>
-        	<link rel="stylesheet" type="text/css" href="css/ie9.css" />
-		<![endif]-->
+<!-- ============================================================== -->
+<!-- Header Admin Profile-->
+<!-- ============================================================== -->
 
+<head th:fragment="head-admin">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/logotype_dark_icon.png}">
+	<title>Vinos Applause</title>
+	<!-- Bootstrap Core CSS -->
+	<link th:href="@{/css/editform.css}" rel="stylesheet" type="text/css" media="all" />
 
+	<link th:href="@{/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+	<!-- Menu CSS -->
+	<link th:href="@{/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}" rel="stylesheet">
+	<!-- chartist CSS -->
+	<link th:href="@{/plugins/bower_components/chartist-js/dist/chartist.min.css}" rel="stylesheet">
+	<link th:href="@{/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css}"
+		rel="stylesheet">
+	<!-- Vector CSS -->
+	<link th:href="@{/plugins/bower_components/vectormap/jquery-jvectormap-2.0.2.css}" rel="stylesheet" />
+	<!-- animation CSS -->
+	<link th:href="@{/css/animate.css}" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<!-- color CSS -->
+	<link th:href="@{/css/colors/megna-dark.css}" id="theme" rel="stylesheet">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<!-- ============================================================== -->
+<!-- Header Winery Shop-->
+<!-- ============================================================== -->
 
-<!-- Extra -->
-<link rel="stylesheet"
-	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}">
+<head th:fragment="front-simple-header">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/logotype_dark_icon.png}">
+	<title>Vinos Applause</title>
+	<!--  Header -->
+	<link th:href="@{/css/theme-1.css}" rel="stylesheet" type="text/css" media="all" />
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}">
 
-
-<title>Vinos de Toro</title>
+	<!--   -->
 </head>
 
 <body>
 
-	<div th:fragment="loader" class="loader">
-		<div class="spinner">
-			<div class="double-bounce1"></div>
-			<div class="double-bounce2"></div>
-		</div>
-	</div>
+	<!-- ============================================================== -->
+	<!-- Winery Shop Nav Index - style you can find in pages.scss -->
+	<!-- ============================================================== -->
 
 	<div th:fragment="nav-container" class="nav-container">
 		<nav class="centered-logo top-bar">
@@ -50,28 +69,116 @@
 
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<a href="index.html"> <img class="logo logo-dark" alt="Logo"
-							src="img/logotype_dark.png">
+						<a th:href="@{/}"> <img class="logo logo-dark" alt="Logo" th:src="@{/img/logotype_dark.png}">
 					</div>
 				</div>
 
+				<div th:if="${session.usuario} != null">
+					<div th:switch="${session.usuario.rol.id}" class="row nav-menu">
 
-				<div class="row nav-menu">
+						<div th:case="1" class="col-sm-12 columns text-center">
+							<ul class="menu">
+								<a></a>
+								<li><a th:href="@{/}">Inicio</a></li>
+								<li><a th:href="@{/payment}"><span class="glyphicon glyphicon-shopping-cart"></span>
+										<span th:text="${session.unitsCarrito}"></span> Pagar</a></li>
+								<li><a th:href="@{/users/profile/user}">Perfil</a></li>
+								<li><a th:href="@{/logout}">Salir</a></li>
+								<li><a th:text="'Hola ' + ${session.usuario.nombre}"></a></li>
+
+
+							</ul>
+
+						</div>
+						<div th:case="2" class="col-sm-12 columns text-center">
+
+							<ul class="menu">
+								<a></a>
+
+								<li><a th:href="@{/users/employee/list}">Usuarios</a>
+										<ul class="dropdown">
+										<li><a th:href="@{/users/add}">Nuevo</a></li>
+
+									</ul>
+								</li>
+
+								<li><a th:href="@{/product/list}">Productos</a>
+									<ul class="dropdown">
+										<li><a th:href="@{/product/add}">Nuevo producto</a></li>
+										
+									</ul>
+								</li>
+
+								
+										<li><a th:href="@{/profile/employee/order/list}">Pedidos</a></li>
+
+
+								<li><a th:href="@{/category/list}">Categorias</a>
+									<ul class="dropdown">
+										<li><a th:href="@{/category/add}">Nueva</a></li>
+									</ul>
+								</li>
+
+
+
+
+								<li><a th:href="@{/users/profile/employee}">Perfil</a></li>
+
+								<li><a th:href="@{/logout}">Salir</a></li>
+								<li class="user-welcome"><a th:text="'Hola ' + ${session.usuario.nombre}"></a></li>
+							</ul>
+
+						</div>
+						<div th:case="3" class="col-sm-12 columns text-center">
+							<ul class="menu">
+								<a></a>
+
+								<li><a th:href="@{/users/list}">Usuarios</a>
+									<ul class="dropdown">
+										<li><a th:href="@{/users/add}">Nuevo</a></li>
+										
+
+									</ul>
+								</li>
+
+								<li><a th:href="@{/product/list}">Productos</a>
+									<ul class="dropdown">
+										<li><a th:href="@{/product/add}">Nuevo producto</a></li>
+									</ul>
+								</li>
+
+								<li><a th:href="@{/order/list}">Pedidos</a>
+									
+								</li>
+
+								<li><a th:href="@{/users/profile/admin}">Perfil</a></li>
+
+								<li><a th:href="@{/logout}">Salir</a></li>
+								<li><a th:text="'Hola ' + ${session.usuario.nombre}"></a></li>
+
+
+
+						</div>
+					</div>
+
+				</div>
+
+				<div th:unless="${session.usuario} != null" class="row nav-menu">
 
 					<div class="col-sm-12 columns text-center">
 						<ul class="menu">
 							<a></a>
-							<li><a th:href="@{/}">Inicio</a></li>
-							<li><a th:href="@{/buscar/cat}">Buscar Productos</a></li>
-							<li><a th:href="@{/productos/list}">Listado de productos</a></li>
+							<li><a th:href="@{/}"><span th:text="${session.diccionario.getString('inicio')}">Inicio</span></a></li>
 							<li><a th:href="@{/login}">Login</a></li>
-							<li><a th:href="@{/signup}">Crear Cuenta</a></li>
-							<li><a th:href="@{/payment}"><span class="glyphicon glyphicon-shopping-cart"></span> <span th:text="${session.unitsCarrito}">Units</span> Pagar</a></li>
+							<li><a th:href="@{/signup}"><span th:text="${session.diccionario.getString('signup')}">Crear Cuenta</span></a></li>
+							<li><a th:href="@{/payment}"><span class="glyphicon glyphicon-shopping-cart"></span> <span
+										th:text="${session.unitsCarrito}">Units</span> <span th:text="${session.diccionario.getString('pagar')}">Pagar</span></a></li>
+							<li><a th:href="@{/idioma} + '?idioma=en'">EN</a> / <a
+									th:href="@{/idioma} + '?idioma=es'">ES</a></li>
 						</ul>
 
 					</div>
 				</div>
-
 				<div class="mobile-toggle">
 					<i class="icon icon_menu"></i>
 				</div>
@@ -79,39 +186,424 @@
 			</div>
 			<div class="bottom-border"></div>
 		</nav>
+	</div>
+
+	<!-- ============================================================== -->
+	<!-- End Shop Nav Index - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	
+	<!-- ============================================================== -->
+	<!-- Topbar header Admin - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<nav th:fragment="nav-admin" class="navbar navbar-default navbar-static-top m-b-0">
+		<div class="navbar-header">
+			<div class="top-left-part">
+				<!-- Logo -->
+				<a class="logo" th:href="@{/}">
+					<!-- Logo icon image, you can use font-icon also -->
+					<b>
+						<!--This is dark logo icon-->
+						<img th:src="@{/img/logotype_dark.png}" alt="home" class="dark-logo" />
+						<!--This is light logo icon-->
+						<img th:src="@{/img/logotype_dark_icon.png}" alt="home" class="light-logo" />
+					</b>
+					<!-- Logo text image you can use text also -->
+					<span class="hidden-xs">
+						<!--This is dark logo text-->
+						<img th:src="@{/img/logotype_dark_text.png}" alt="home" class="dark-logo" />
+						<!--This is light logo text-->
+						<img th:src="@{/img/logotype_dark_text.png}" alt="home" class="light-logo" />
+					</span>
+				</a>
+			</div>
+			<!-- /Logo -->
+			<!-- Search input and Toggle icon -->
+			<ul class="nav navbar-top-links navbar-left">
+				<li><a class="open-close waves-effect waves-light"><i class="ti-menu"></i></a></li>
+				<li class="dropdown">
+
+				</li>
+			</ul>
+			<ul class="nav navbar-top-links navbar-right pull-right">
+				<li>
+					<form role="search" class="app-search hidden-sm hidden-xs m-r-10">
+						<input type="text" placeholder="Search..." class="form-control"> <a href=""><i
+								class="fa fa-search"></i></a>
+					</form>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img
+							th:src="@{/img/users-icon.png}" alt="user-img" width="36" class="img-circle"><b
+							class="hidden-xs" th:text="${session.usuario.nombre}">Usuario</b><span class="caret"></span> </a>
+					<ul class="dropdown-menu dropdown-user animated flipInY">
+						<li>
+							<!-- User card right bar -->
+							<!-- ============================================================== -->
+
+							<div class="dw-user-box">
+								<div class="u-img">
+									<img th:src="@{/img/users-icon.png}" alt="user" />
+								</div>
+								<div class="u-text">
+									<h4 th:text="${session.usuario.nombre}">Usuario</h4>
+									<p class="text-muted" th:text="${session.usuario.email}">usuario@gmail.com</p>
+									
+									<a th:if="${session.usuario.rol.id}==3 " th:href="@{/users/profile/admin}"
+										class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a>
+									<a th:if="${session.usuario.rol.id}==2 " th:href="@{/users/profile/employee}"
+										class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a>
+									<a th:if="${session.usuario.rol.id}==1 " th:href="@{/users/profile/user}"
+										class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a>
+								</div>
+							</div>
+						</li>
+						<li role="separator" class="divider"></li>
+						<li th:if="${session.usuario.rol.id}==3 "> <a th:href="@{/users/profile/admin}"><i
+									class="ti-user"></i> Perfil</a></li>
+						<li th:if="${session.usuario.rol.id}==2 "> <a th:href="@{/users/profile/employee}"><i
+									class="ti-user"></i> Perfil</a></li>
+						<li th:if="${session.usuario.rol.id}==1 "> <a th:href="@{/users/profile/user}"><i
+									class="ti-user"></i> Perfil</a></li>
+
+						<li role="separator" class="divider"></li>
+						<li role="separator" class="divider"></li>
+						<li><a th:href="@{/logout}"><i class="fa fa-power-off"></i> Logout</a></li>
+					</ul>
+					<!-- /.dropdown-user -->
+				</li>
+				<!-- /.dropdown -->
+			</ul>
+		</div>
+		<!-- /.navbar-header -->
+		<!-- /.navbar-top-links -->
+		<!-- /.navbar-static-side -->
+	</nav>
+	<!-- ============================================================== -->
+	<!-- End  Top Navigation         -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- Left Sidebar Admin- style you can find in sidebar.scss  -->
+	<!-- ============================================================== -->
+	<div th:fragment="left-sidebar-admin" class="navbar-default sidebar" role="navigation">
+		<div class="sidebar-nav slimscrollsidebar">
+			<div class="sidebar-head">
+				<h3>
+					<span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span
+						class="hide-menu">Navigation</span>
+				</h3>
+			</div>
+			<ul class="nav" id="side-menu">
+				<li class="user-pro">
+					<a th:href="@{/users/profile/admin}" class="waves-effect"><img th:src="@{/img/users-icon.png}"
+							alt="user-img" class="img-circle"> <span class="hide-menu"
+							th:text="${session.usuario.nombre}"> <span class="fa arrow"></span></span>
+					</a>
+					<ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+						<li><a th:href="@{/users/profile/admin}"><i class="ti-user"></i> <span
+									class="hide-menu">Perfil</span></a></li>
+						<li><a th:href="@{/order/list}"><i class="ti-email"></i> <span
+									class="hide-menu">Pedidos</span></a></li>
+						<li><a th:href="@{/product/list}"><i class="ti-settings"></i> <span class="hide-menu">Productos
+									Setting</span></a></li>
+						<li><a th:href="@{/logout}"><i class="fa fa-power-off"></i> <span
+									class="hide-menu">Logout</span></a>
+						</li>
+					</ul>
+				</li>
+				<li> <a th:href="@{/users/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Usuarios <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						<li> <a th:href="@{/users/add}"><i class=" fa-fw"></i><span class="hide-menu">Nuevo
+									Usuario</span></a>
+						</li>
+					</ul>
+				</li>
+
+				<li> <a th:href="@{/order/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Pedidos <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+
+				</li>
+				<li> <a th:href="@{/product/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Productos <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						<li> <a th:href="@{/product/add}"><i class=" fa-fw"></i><span class="hide-menu">Añadir Producto</span></a>
+						</li>
+					</ul>
+				</li>
+				<li> <a th:href="@{/category/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Categorias <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						<li> <a th:href="@{/category/add}"><i class=" fa-fw"></i><span class="hide-menu">Añadir
+									Categoría</span></a>
+						</li>
+					</ul>
+				</li>
+
+				<li> <a th:href="@{/method/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Metodos de Pago <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						<li> <a th:href="@{/method/add}"><i class=" fa-fw"></i><span class="hide-menu">Nuevo
+									Metodo de Pago</span></a>
+						</li>
+					</ul>
+				</li>
+
+				<li> <a th:href="@{/reviews/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Valoraciones <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					
+				</li>
+
+				<li> <a th:href="@{/config/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Configuraciones <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						<li> <a th:href="@{/config/add}"><i class=" fa-fw"></i><span class="hide-menu">Nueva
+									Configuración</span></a>
+						</li>
+					</ul>
+				</li>
+				<li class="devider"></li>
+				<li><a th:href="@{/logout}" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span
+							class="hide-menu">Log out</span></a></li>
+				<li class="devider"></li>
+				<li><a th:href="@{/users/downloads}" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+						<span class="hide-menu">Descargas</span></a></li>
+				<li><a href="file:///Users/Newland/eclipse-spring/TiendaOnline_Gonzalo_Bartolome_Boya3/Javadoc_tienda/index.html" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+						<span class="hide-menu">Documentation</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Left Sidebar -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- Left Sidebar Employee - style you can find in sidebar.scss  -->
+	<!-- ============================================================== -->
+	<div th:fragment="left-sidebar-employee" class="navbar-default sidebar" role="navigation">
+		<div class="sidebar-nav slimscrollsidebar">
+			<div class="sidebar-head">
+				<h3>
+					<span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span
+						class="hide-menu">Navigation</span>
+				</h3>
+			</div>
+			<ul class="nav" id="side-menu">
+				<li class="user-pro">
+					<a th:href="@{/users/profile/employee}" class="waves-effect"><img th:src="@{/img/users-icon.png}"
+							alt="user-img" class="img-circle"> <span class="hide-menu"
+							th:text="${session.usuario.nombre}"> <span class="fa arrow"></span></span>
+					</a>
+					<ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+						<li><a th:href="@{/users/profile/admin}"><i class="ti-user"></i> <span
+									class="hide-menu">Perfil</span></a></li>
+						<li><a th:href="@{/order/list}"><i class="ti-email"></i> <span
+									class="hide-menu">Pedidos</span></a></li>
+						<li><a th:href="@{/product/list}"><i class="ti-settings"></i> <span class="hide-menu">Productos
+									Setting</span></a></li>
+						<li><a th:href="@{/logout}"><i class="fa fa-power-off"></i> <span
+									class="hide-menu">Logout</span></a>
+						</li>
+					</ul>
+				</li>
+				<li> <a th:href="@{/users/employee/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Usuarios <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					
+				</li>
+
+				<li> <a th:href="@{/order/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Pedidos <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					
+				</li>
+				<li> <a th:href="@{/product/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Productos <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						<li> <a th:href="@{/product/add}"><i class=" fa-fw"></i><span class="hide-menu">Añadir
+									Producto</span></a>
+						</li>
+					</ul>
+				</li>
+				<li> <a th:href="@{/category/list}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Categorias <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						<li> <a th:href="@{/category/add}"><i class=" fa-fw"></i><span class="hide-menu">Crear
+									Categoría</span></a>
+						</li>
+					</ul>
+				</li>
+				<li class="devider"></li>
+				<li><a th:href="@{/logout}" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span
+							class="hide-menu">Log out</span></a></li>
+				<li class="devider"></li>
+				<li><a th:href="@{/}" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+						<span class="hide-menu">Descargas</span></a></li>
+				<li><a href="file:///Users/Newland/eclipse-spring/TiendaOnline_Gonzalo_Bartolome_Boya3/Javadoc_tienda/index.html" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+						<span class="hide-menu">Documentation</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Left Sidebar  Employee -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- Left Sidebar User- style you can find in sidebar.scss  -->
+	<!-- ============================================================== -->
+	<div th:fragment="left-sidebar-user" class="navbar-default sidebar" role="navigation">
+		<div class="sidebar-nav slimscrollsidebar">
+			<div class="sidebar-head">
+				<h3>
+					<span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span
+						class="hide-menu">Navigation</span>
+				</h3>
+			</div>
+			<ul class="nav" id="side-menu">
+				<li class="user-pro">
+					<a th:href="@{/users/profile/user}" class="waves-effect"><img th:src="@{/img/users-icon.png}"
+							alt="user-img" class="img-circle"> <span class="hide-menu"
+							th:text="${session.usuario.nombre}"> <span class="fa arrow"></span></span>
+					</a>
+					<ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+						<li><a th:href="@{/users/profile/user}"><i class="ti-user"></i> <span
+									class="hide-menu">Perfil</span></a></li>
+						<li><a th:href="@{/order/list/user/}+${session.usuario.id}"><i class="ti-email"></i> <span
+									class="hide-menu">Pedidos</span></a></li>
+						<li><a th:href="@{/product/list}"><i class="ti-settings"></i> <span class="hide-menu">Productos
+									Setting</span></a></li>
+						<li><a th:href="@{/logout}"><i class="fa fa-power-off"></i> <span
+									class="hide-menu">Logout</span></a>
+						</li>
+					</ul>
+				</li>
+
+				<li> <a th:href="@{/order/list/user/}+${session.usuario.id}" class="waves-effect"><i class="mdi mdi-av-timer fa-fw"
+							data-icon="v"></i>
+						<span class="hide-menu"> Pedidos <span class="fa arrow"></span> <span
+								class="label label-rouded label-inverse pull-right"></span></span></a>
+					<ul class="nav nav-second-level">
+						
+					</ul>
+				</li>
+
+
+				<li class="devider"></li>
+				<li><a th:href="@{/logout}" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span
+							class="hide-menu">Log out</span></a></li>
+				<li class="devider"></li>
+				<li><a th:href="@{/users/downloads}" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+						<span class="hide-menu">Descargas</span></a></li>
+				<li><a href="file:///Users/Newland/eclipse-spring/TiendaOnline_Gonzalo_Bartolome_Boya3/Javadoc_tienda/index.html" class="waves-effect"><i class="fa fa-circle-o text-danger"></i>
+						<span class="hide-menu">Documentation</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Left Sidebar User -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- Start Scripts Index-->
+	<!-- ============================================================== -->
+	<div th:fragment="scripts-index">
+		<script th:src="@{/js/js/jquery.min.js}"></script>
+		<script th:src="@{/js/js/jquery.plugin.min.js}"></script>
+		<script th:src="@{/js/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/js/jquery.flexslider-min.js}"></script>
+		<script th:src="@{/js/js/smooth-scroll.min.js}"></script>
+		<script th:src="@{/js/js/skrollr.min.js}"></script>
+		<script th:src="@{/js/js/spectragram.min.js}"></script>
+		<script th:src="@{/js/js/scrollReveal.min.js}"></script>
+		<script th:src="@{/js/js/isotope.min.js}"></script>
+		<script th:src="@{/js/js/lightbox.min.js}"></script>
+		<script th:src="@{/js/js/jquery.countdown.min.js}"></script>
+		<script th:src="@{/js/js/scripts.js}"></script>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Start Scripts Admin-->
+	<!-- ============================================================== -->
+	<div th:fragment="scripts-admin">
+
+		<!-- jQuery -->
+		<script th:src="@{/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script th:src="@{/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- Menu Plugin JavaScript -->
+		<script th:src="@{/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js}"></script>
+		<!--Counter js -->
+		<script th:src="@{/plugins/bower_components/waypoints/lib/jquery.waypoints.js}"></script>
+		<script th:src="@{/plugins/bower_components/counterup/jquery.counterup.min.js}"></script>
+		<!--slimscroll JavaScript -->
+		<script th:src="@{js/jquery.slimscroll.js}"></script>
+		<!--Wave Effects -->
+		<script th:src="@{js/waves.js}"></script>
+		<!-- Vector map JavaScript -->
+		<script th:src="@{/plugins/bower_components/vectormap/jquery-jvectormap-2.0.2.min.js}"></script>
+		<script th:src="@{/plugins/bower_components/vectormap/jquery-jvectormap-world-mill-en.js}"></script>
+		<script th:src="@{/plugins/bower_components/vectormap/jquery-jvectormap-in-mill.js}"></script>
+		<script th:src="@{/plugins/bower_components/vectormap/jquery-jvectormap-us-aea-en.js}"></script>
+		<!-- chartist chart -->
+		<script th:src="@{/plugins/bower_components/chartist-js/dist/chartist.min.js}"></script>
+		<script
+			th:src="@{/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js}"></script>
+		<!-- sparkline chart JavaScript -->
+		<script th:src="@{/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js}"></script>
+		<script th:src="@{/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js}"></script>
+		<!-- Custom Theme JavaScript -->
+		<script th:src="@{/js/custom.min.js}"></script>
+		<script th:src="@{/js/dashboard3.js}"></script>
+		<!--Style Switcher -->
+		<script th:src="@{/plugins/bower_components/styleswitcher/jQuery.style.switcher.js}"></script>
+
 
 	</div>
+	<!-- ============================================================== -->
+	<!-- Start Footer -->
+	<!-- ============================================================== -->
 	<footer th:fragment="footer" class="short bg-secondary-1">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-12 text-center">
-							<ul class="social-icons">
-								<li>
-									<a href="#">
-										<i class="icon social_twitter"></i>
-									</a>
-								</li>
-								
-								<li>
-									<a href="#">
-										<i class="icon social_facebook"></i>
-									</a>
-								</li>
-							</ul>
-							<br>
-							<br>
-							<br>
-							<font color="a87f97">© Copright 2021 Vino de Toro.&nbsp; Designed by Gonzalo</font>.</span>
-							
-							
-							
-						</div>
-						
-						
-					</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<ul class="social-icons">
+						<li><a href="#"> <i class="icon social_twitter"></i>
+							</a></li>
+
+						<li><a href="#"> <i class="icon social_facebook"></i>
+							</a></li>
+					</ul>
+					<br> <br> <br>
+					<font color="a87f97">©
+						Copright 2021 Vino de Toro.&nbsp; Designed by Gonzalo</font>.</span>
+
+
+
 				</div>
-			</footer>
-	
+
+
+			</div>
+		</div>
+	</footer>
+	<!-- ============================================================== -->
+	<!-- End Footer -->
+	<!-- ============================================================== -->
 
 </body>
+
 </html>

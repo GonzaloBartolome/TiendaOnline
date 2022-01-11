@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments :: head-admin">
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== 
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>-->
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+
+
+        <nav th:replace="fragments :: nav-admin"></nav>
+       <div th:replace="fragments :: left-sidebar-employee"></div>
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row bg-title">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Gestión Usuarios</h4>
+					</div>
+					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+						<button
+							class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
+							<i class="ti-settings text-white"></i>
+						</button>
+						<ol class="breadcrumb">
+							<li><a th:text="${session.usuario.nombre}"></a></li>
+                        
+                             <li th:if="${session.usuario.rol.id}==3"><a th:href="@{users/profile/admin}">Admin Dashboard</a></li>
+
+                            <li th:if="${session.usuario.rol.id}==2"><a th:href="@{users/profile/employee}">Empleado Dashboard</a></li>
+							<li class="active">Crear Usuarios</li>
+						</ol>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+                <!-- ============================================================== -->
+                <!-- Other sales widgets -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- Users table -->
+                <!-- ============================================================== -->
+
+                <!--.row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"> Crear Nuevo Usuario</div>
+                            <div class="panel-wrapper collapse in" aria-expanded="true">
+                                <div class="panel-body">
+                                          <form th:action="@{/users/add/submit}" th:object="${usuario}" method="post">
+
+
+
+
+                                        <div class="form-body">
+                                            <h3 class="box-title">Datos de Usuario</h3>
+                                            <hr>
+<div class="row">
+                                               <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nombre</label>
+                                                        <input class="form-control" type="text" id="name" name="nombre"
+                                                            placeholder="Nombre" /><span class="help-block">
+                                                            <span class="help-block">
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div th:if="${session.usuario.rol.id}==3" class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Rol</label>
+                                                        <select class="form-control" name="rol.id" th:placeholder="Rol"
+                                                            th:field="*{rol.id}">
+                                                            <option th:each="cat : ${rolList}" th:value="${cat.id}"
+                                                                th:text="${cat.rol}"></option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div th:if="${session.usuario.rol.id}==2" class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Rol</label>
+                                                        <select class="form-control" name="rol.id" th:placeholder="Rol"
+                                                            th:field="*{rol.id}">
+                                                            <option th:value="${rol.id}" th:text="${rol.rol}"></option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Apellido1</label>
+                                                        <input class="form-control" type="text" id="name" name="apellido1"
+                                                            placeholder="Apellido1">
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Apellido2</label>
+                                                            <input class="form-control" type="text" id="name" name="apellido1"
+                                                                placeholder="Apellido1">
+
+                                                        </div>
+                                                    </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Email</label>
+                                                        <input class="form-control" type="email" id="email" name="email" placeholder="Email">
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Contraseña</label>
+                                                        <input class="form-control" type="password" id="pass" name="clave"
+                                                            placeholder="Contraseña">
+                                                    </div>
+                                                </div>
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                            <h3 class="box-title m-t-40">Mas Datos</h3>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12 ">
+                                                    <div class="form-group">
+                                                            <label>Dirección</label>
+                                                            <input class="form-control" type="text" id="name" name="direccion"
+                                                                placeholder="Direccion">
+
+                                                        </div>
+                                            </div>
+                                            <div class="row">
+                                               
+                                                
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Localidad</label>
+                                                            <input class="form-control" type="text" id="name" name="localidad"
+                                                                placeholder="Localidad">
+
+                                                        </div>
+                                                    </div>
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Provincia</label>
+                                                            <input class="form-control" type="text" id="name" name="provincia"
+                                                                placeholder="Provincia">
+
+                                                        </div>
+                                                    </div>
+
+                                               
+                                                <!--/span-->
+                                            </div>
+                                            <!--/row-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Telefono</label>
+                                                            <input class="form-control" type="text" id="name" name="telefono"
+                                                                placeholder="Telefono">
+
+                                                        </div>
+                                                    </div>
+
+                                                <!--/span-->
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>DNI</label>
+                                                            <input class="form-control" type="text" id="name" name="dni" placeholder="Dni">
+
+                                                        </div>
+                                                    </div>
+                                                <!--/span-->
+                                            </div>
+                                        </div>
+
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn btn-success"> <i
+                                                        class="fa fa-check"></i>
+                                                    Guardar</button>
+											<button type="submit" onclick="window.history.go(-1); return false;" class="btn btn-default">Cancelar</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--./row-->
+
+
+
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2021 &copy; Vinos Applause </footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <div th:replace="fragments :: scripts-admin">
+    </div>
+</body>
+
+</html>
